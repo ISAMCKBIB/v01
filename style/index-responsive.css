@@ -1,0 +1,301 @@
+/* ============================================================
+   ISAM Index — Responsive Enhancement
+   CARA PAKAI: paste/import di bagian PALING BAWAH indexstyl.css
+   atau tambahkan <link rel="stylesheet" href="style/index-responsive.css">
+   SETELAH baris <link rel="stylesheet" href="style/indexstyl.css">
+   ============================================================ */
+
+/* ── BASE: cegah overflow horizontal di semua device ── */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+img, svg, iframe, video {
+  max-width: 100%;
+}
+
+/* ============================================================
+   TABLET (1024px ke bawah)
+   ============================================================ */
+@media (max-width: 1024px) {
+  .nav-links { gap: 18px; }
+
+  .hero-title { font-size: 42px; }
+  .hero-desc  { font-size: 15px; }
+
+  .hero-stats {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px 24px;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+}
+
+/* ============================================================
+   MOBILE / TABLET KECIL (768px ke bawah)
+   ============================================================ */
+@media (max-width: 768px) {
+
+  /* Navbar */
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+
+  .nav-cta .btn-nav-login span,
+  .nav-cta .btn-nav-primary span { display: none; }
+
+  .profile-badge .profile-role { display: none; }
+
+  /* Hero */
+  .hero {
+    min-height: auto;
+    padding: 100px 20px 60px;
+    text-align: center;
+  }
+
+  .hero-badge { font-size: 12px; }
+
+  .hero-title { font-size: 32px; line-height: 1.25; }
+
+  .hero-desc {
+    font-size: 14px;
+    max-width: 100%;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .btn-hero-primary,
+  .btn-hero-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero-stats {
+    grid-template-columns: repeat(2, 1fr);
+    display: grid;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .hs-val { font-size: 22px; }
+  .hs-lbl { font-size: 11px; }
+
+  .scroll-hint { display: none; }
+
+  /* Section umum */
+  .section-header { padding: 0 20px; text-align: center; }
+  .section-title  { font-size: 24px; }
+  .section-desc   { font-size: 13.5px; }
+
+  /* KPI cards */
+  .kpi-section { padding: 50px 16px; }
+
+  .kpi-quick {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .kq-val { font-size: 26px; }
+
+  /* Power BI embed — buat scroll horizontal di mobile */
+  .pbi-wrap { padding: 12px; }
+
+  .pbi-frame {
+    width: 100%;
+    height: 320px;
+  }
+
+  /* Gallery */
+  .gallery-section { padding: 50px 16px; }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .gallery-item .gallery-placeholder { height: 200px !important; }
+
+  /* Features */
+  .features-section { padding: 50px 16px; }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  /* PIC Area */
+  .pic-section { padding: 50px 16px; }
+
+  .pic-area-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .pa-card {
+    flex-wrap: wrap;
+  }
+
+  /* About */
+  .about-section { padding: 50px 16px; }
+
+  .about-title { font-size: 24px; }
+  .about-desc  { font-size: 14px; }
+
+  .about-item {
+    align-items: flex-start;
+  }
+
+  .ab-card-desc { font-size: 13px; }
+
+  /* Contact */
+  .contact-section { padding: 50px 16px; }
+
+  .contact-form { padding: 20px; }
+
+  .cf-r2 {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .cf-field input,
+  .cf-field select,
+  .cf-field textarea {
+    font-size: 16px; /* cegah auto-zoom iOS */
+  }
+
+  .btn-submit { width: 100%; justify-content: center; }
+
+  /* Footer */
+  .footer { padding: 40px 16px 20px; }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    text-align: left;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+
+  /* Toast */
+  .toast {
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    width: auto;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+/* ============================================================
+   MOBILE KECIL (480px ke bawah)
+   ============================================================ */
+@media (max-width: 480px) {
+
+  .nav-logo-title { font-size: 16px; }
+
+  .hero { padding: 90px 16px 50px; }
+
+  .hero-title { font-size: 26px; }
+
+  .hero-stats { grid-template-columns: repeat(2, 1fr); }
+
+  .hs-val { font-size: 20px; }
+
+  .kpi-quick { grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .kq-card { padding: 14px; }
+
+  .kq-val { font-size: 22px; }
+
+  .pbi-frame { height: 260px; }
+
+  .section-title { font-size: 21px; }
+
+  .gallery-item .gallery-placeholder { height: 170px !important; }
+
+  .pa-card { padding: 14px; gap: 12px; }
+
+  .pa-ava { width: 40px; height: 40px; font-size: 14px; }
+
+  .contact-form { padding: 16px; }
+
+  .footer-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   HP JADUL / LAYAR SANGAT KECIL (360px ke bawah)
+   ============================================================ */
+@media (max-width: 360px) {
+  .hero-title { font-size: 22px; }
+  .hero-stats { grid-template-columns: 1fr 1fr; }
+  .kpi-quick  { grid-template-columns: 1fr; }
+  .pbi-frame  { height: 220px; }
+}
+
+/* ============================================================
+   LANDSCAPE MOBILE
+   ============================================================ */
+@media (max-width: 900px) and (orientation: landscape) {
+  .hero { padding: 90px 24px 40px; min-height: 100vh; }
+  .pbi-frame { height: 360px; }
+}
+
+/* ============================================================
+   SAFE AREA — iPhone notch & home indicator
+   ============================================================ */
+@supports (padding: env(safe-area-inset-bottom)) {
+  @media (max-width: 480px) {
+    .toast {
+      bottom: calc(16px + env(safe-area-inset-bottom));
+    }
+    .footer {
+      padding-bottom: calc(20px + env(safe-area-inset-bottom));
+    }
+  }
+}
+
+/* ============================================================
+   TOUCH DEVICE — matikan efek hover yang nyangkut
+   ============================================================ */
+@media (hover: none) {
+  .btn-hero-primary:hover,
+  .btn-hero-secondary:hover,
+  .feat-card:hover,
+  .gallery-item:hover .gallery-overlay,
+  .pa-card:hover,
+  .ab-card:hover,
+  .social-btn:hover {
+    transform: none;
+  }
+}
