@@ -6,7 +6,7 @@
 'use strict';
 
 // ── URL GAS yang sudah ada (tidak berubah) ───────────────────
-var API_URL = 'https://script.google.com/macros/s/AKfycbz-570kTIDvQyvcD7Y-Ezy-8z80qp_Wxg0J2e-_6LKYHWfzC3AQR5_22e4Tbnp4DkwuNA/exec';
+var API_URL = 'https://script.google.com/macros/s/AKfycbw4k8CSXxUQmahghLAqRtUDgk1vy3tc0qvEaqorklJvIZIgzVUpxdfm-9pCr3u-hw1ugQ/exec';
 
 // Role → halaman dashboard
 var DASHBOARD = {
