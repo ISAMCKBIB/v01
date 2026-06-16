@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ISAM-PIC</title>
+
+  <!-- Google Fonts -->
+ <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style/picstyle.css" />
+
+  <!-- Stylesheet utama -->
+  <script src="Java/authenguard.js"></script>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════
+     SIDEBAR
+     ══════════════════════════════════════════════════════════ -->
+<aside class="sidebar">
+
+  <!-- Logo -->
+  <div class="logo-wrap">
+    <!-- Hamburger (mobile only) -->
+    <div class="mobile-menu-btn" id="hamburger-btn" onclick="toggleMobileMenu()" style="display:none;margin-right:8px">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="logo-mark">
+      <svg viewBox="0 0 24 24">
+        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+      </svg>
+    </div>
+    <div>
+      <div class="logo-title">PIC<span>Tools</span></div>
+      <div class="logo-sub">v1.0 · PIC Area</div>
+    </div>
+  </div>
+
+  <!-- Nav -->
+  <nav class="nav">
+
+    <div class="nav-group-label">Utama</div>
+    <div class="nav-item active" onclick="goNav('dashboard', this)">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <rect x="3" y="3" width="7" height="7" rx="1"/>
+        <rect x="14" y="3" width="7" height="7" rx="1"/>
+        <rect x="3" y="14" width="7" height="7" rx="1"/>
+        <rect x="14" y="14" width="7" height="7" rx="1"/>
+      </svg>
+      Dashboard
+    </div>
+
+    <div class="nav-item" onclick="goNav('form-tl', this)">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+      </svg>
+      Form Tindak Lanjut
+    </div>
+
+    <div class="nav-item" onclick="goNav('tugasku', this)">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <polyline points="9 11 12 14 22 4"/>
+        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+      </svg>
+      Tugas Saya
+      <span class="nav-pill np-yellow">4</span>
+    </div>
+
+    <div class="nav-item" onclick="goNav('overdue', this)">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+        <line x1="12" y1="9" x2="12" y2="13"/>
+        <line x1="12" y1="17" x2="12.01" y2="17"/>
+      </svg>
+      Overdue
+      <span class="nav-pill np-red">2</span>
+    </div>
+
+    <div class="nav-group-label" style="margin-top:6px">Riwayat</div>
+    <div class="nav-item" onclick="goNav('riwayat', this)">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <line x1="8" y1="6" x2="21" y2="6"/>
+        <line x1="8" y1="12" x2="21" y2="12"/>
+        <line x1="8" y1="18" x2="21" y2="18"/>
+        <line x1="3" y1="6" x2="3.01" y2="6"/>
+        <line x1="3" y1="12" x2="3.01" y2="12"/>
+        <line x1="3" y1="18" x2="3.01" y2="18"/>
+      </svg>
+      Riwayat Tindak Lanjut
+      <span class="nav-pill np-blue">12</span>
+    </div>
+
+    <div class="nav-group-label" style="margin-top:6px">Informasi</div>
+    <div class="nav-item" onclick="showToast('Fitur Laporan segera hadir 📄')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+      </svg>
+      Laporan Saya
+    </div>
+    <div class="nav-item" onclick="showToast('Fitur pengaturan segera hadir ⚙️')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>
+      </svg>
+      Pengaturan
+    </div>
+    <a class="nav-item" href="index.html">
+    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>
+    </svg>
+    Back to Home
+</a>
+
+  </nav>
+
+  <!-- User -->
+  <div class="sidebar-footer">
+    <div class="user-row">
+      <div class="ava" style="background:linear-gradient(135deg,#2563eb,#7c3aed)">BJ</div>
+      <div>
+        <div class="user-name">Budi Jatmiko</div>
+        <div class="user-role">PIC Area</div>
+        <div class="user-area">📍 WS CIA · KGB</div>
+      </div>
+    </div>
+  </div>
+
+</aside><!-- /sidebar -->
+
+<!-- ══ MOBILE QUICK NAV (horizontal scroll) ══ -->
+<div class="mobile-nav" id="mobile-nav" style="display:none">
+  <div class="mobile-nav-item active" onclick="goNav('dashboard',this)" data-view="dashboard">
+    📊 Dashboard
+  </div>
+  <div class="mobile-nav-item" onclick="goNav('form-tl',this)" data-view="form-tl">
+    ✏️ Tindak Lanjut
+  </div>
+  <div class="mobile-nav-item" onclick="goNav('tugasku',this)" data-view="tugasku">
+    ✅ Tugas Saya
+    <span style="background:var(--yellow);color:#fff;font-size:9px;padding:1px 5px;border-radius:10px;font-weight:700">4</span>
+  </div>
+  <div class="mobile-nav-item" onclick="goNav('overdue',this)" data-view="overdue">
+    ⚠️ Overdue
+    <span style="background:var(--red);color:#fff;font-size:9px;padding:1px 5px;border-radius:10px;font-weight:700">2</span>
+  </div>
+  <div class="mobile-nav-item" onclick="goNav('riwayat',this)" data-view="riwayat">
+    📋 Riwayat
+  </div>
+</div>
+
+<!-- ══ BOTTOM NAV BAR (mobile fixed) ══ -->
+<div class="bottom-nav" id="bottom-nav">
+  <div class="bn-item active" id="bn-dashboard" onclick="goNav('dashboard',null);setBnActive('bn-dashboard')">
+    <div class="bn-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+        <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+      </svg>
+    </div>
+    <div class="bn-lbl">Dashboard</div>
+  </div>
+  <div class="bn-item" id="bn-tugasku" onclick="goNav('tugasku',null);setBnActive('bn-tugasku')">
+    <div class="bn-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <polyline points="9 11 12 14 22 4"/>
+        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+      </svg>
+    </div>
+    <div class="bn-lbl">Tugas</div>
+    <div class="bn-badge">4</div>
+  </div>
+  <div class="bn-item" id="bn-form-tl" onclick="goNav('form-tl',null);setBnActive('bn-form-tl')"
+       style="background:var(--accent);border-radius:50%;width:48px;height:48px;margin-top:-10px;flex:none;box-shadow:0 4px 14px rgba(37,99,235,.4)">
+    <div class="bn-icon" style="color:#fff">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+    </div>
+    <div class="bn-lbl" style="color:#fff;font-size:8.5px">Baru</div>
+  </div>
+  <div class="bn-item" id="bn-overdue" onclick="goNav('overdue',null);setBnActive('bn-overdue')">
+    <div class="bn-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+        <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+      </svg>
+    </div>
+    <div class="bn-lbl">Overdue</div>
+    <div class="bn-badge">2</div>
+  </div>
+  <div class="bn-item" id="bn-riwayat" onclick="goNav('riwayat',null);setBnActive('bn-riwayat')">
+    <div class="bn-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
+        <line x1="8" y1="18" x2="21" y2="18"/>
+        <line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/>
+        <line x1="3" y1="18" x2="3.01" y2="18"/>
+      </svg>
+    </div>
+    <div class="bn-lbl">Riwayat</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     MAIN
+     ══════════════════════════════════════════════════════════ -->
+<div class="main">
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="page-title" id="page-title">Dashboard</div>
+    <span class="tb-mono" id="today-lbl"></span>
+
+    <button class="tb-btn" onclick="goNav('riwayat', null)">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="8" y1="6" x2="21" y2="6"/>
+        <line x1="8" y1="12" x2="21" y2="12"/>
+        <line x1="8" y1="18" x2="21" y2="18"/>
+        <line x1="3" y1="6" x2="3.01" y2="6"/>
+        <line x1="3" y1="12" x2="3.01" y2="12"/>
+        <line x1="3" y1="18" x2="3.01" y2="18"/>
+      </svg>
+      Riwayat
+    </button>
+
+    <button class="tb-btn primary" onclick="goNav('form-tl', null)">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="12" y1="5" x2="12" y2="19"/>
+        <line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+      Tindak Lanjut Baru
+    </button>
+  </header>
+
+  <!-- ── VIEWS ── -->
+  <div class="views">
+
+    <!-- ══ DASHBOARD ══ -->
+    <div class="view on" id="v-dashboard">
+      <div class="kpi-grid anim">
+        <div class="kpi">
+          <div class="kpi-bar" style="background:var(--accent)"></div>
+          <div class="kpi-lbl">Total Temuan</div>
+          <div class="kpi-val" style="color:var(--accent)">9</div>
+          <div class="kpi-sub">Di area saya</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-bar" style="background:var(--green)"></div>
+          <div class="kpi-lbl">Selesai</div>
+          <div class="kpi-val" style="color:var(--green)">5</div>
+          <div class="kpi-sub">Tindak lanjut tuntas</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-bar" style="background:var(--yellow)"></div>
+          <div class="kpi-lbl">Dalam Proses</div>
+          <div class="kpi-val" style="color:var(--yellow)">2</div>
+          <div class="kpi-sub">Sedang dikerjakan</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-bar" style="background:var(--red)"></div>
+          <div class="kpi-lbl">Overdue</div>
+          <div class="kpi-val" style="color:var(--red)">2</div>
+          <div class="kpi-sub">Melewati batas waktu</div>
+        </div>
+      </div>
+
+      <div class="row row-32">
+        <!-- Tugas aktif -->
+        <div class="card">
+          <div class="card-head">
+            <span class="card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 11 12 14 22 4"/>
+                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+              </svg>
+              Tugas Aktif Saya
+            </span>
+            <span class="card-link" onclick="goNav('tugasku', null)">Lihat semua →</span>
+          </div>
+          <div id="task-list"></div>
+        </div>
+
+        <!-- Ringkasan & Aktivitas -->
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div class="card">
+            <div class="card-head"><span class="card-title">Progress Tindak Lanjut</span></div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px">
+                  <span style="color:var(--text2)">Selesai</span>
+                  <span style="color:var(--green);font-family:var(--mono);font-weight:600">5 / 9</span>
+                </div>
+                <div class="progbar"><div class="progfill" style="width:56%;background:var(--green)"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px">
+                  <span style="color:var(--text2)">Dalam Proses</span>
+                  <span style="color:var(--accent);font-family:var(--mono);font-weight:600">2 / 9</span>
+                </div>
+                <div class="progbar"><div class="progfill" style="width:22%;background:var(--accent)"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px">
+                  <span style="color:var(--text2)">Overdue</span>
+                  <span style="color:var(--red);font-family:var(--mono);font-weight:600">2 / 9</span>
+                </div>
+                <div class="progbar"><div class="progfill" style="width:22%;background:var(--red)"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-head"><span class="card-title">Aktivitas Terkini</span></div>
+            <div class="act-item"><div class="act-dot" style="background:var(--green)"></div><div><div class="act-text">TL-007 ditandai Selesai</div><div class="act-time">Hari ini · 09:20</div></div></div>
+            <div class="act-item"><div class="act-dot" style="background:var(--accent)"></div><div><div class="act-text">TL-008 diupdate — Dalam Proses</div><div class="act-time">Kemarin · 14:30</div></div></div>
+            <div class="act-item"><div class="act-dot" style="background:var(--red)"></div><div><div class="act-text">TL-005 overdue 3 hari</div><div class="act-time">05 Jun · 08:00</div></div></div>
+            <div class="act-item"><div class="act-dot" style="background:var(--yellow)"></div><div><div class="act-text">Temuan baru INS-048 ditugaskan</div><div class="act-time">04 Jun · 11:00</div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Distribusi risiko & jenis alat -->
+      <div class="row row-2">
+        <div class="card">
+          <div class="card-head"><span class="card-title">Distribusi Risiko Temuan</span></div>
+          <div class="bchart-row"><div class="bchart-lbl">Critical</div><div class="bchart-track"><div class="bchart-fill" style="width:22%;background:var(--red)"></div></div><div class="bchart-num">2</div></div>
+          <div class="bchart-row"><div class="bchart-lbl">High</div><div class="bchart-track"><div class="bchart-fill" style="width:33%;background:var(--orange)"></div></div><div class="bchart-num">3</div></div>
+          <div class="bchart-row"><div class="bchart-lbl">Medium</div><div class="bchart-track"><div class="bchart-fill" style="width:33%;background:var(--yellow)"></div></div><div class="bchart-num">3</div></div>
+          <div class="bchart-row"><div class="bchart-lbl">Low</div><div class="bchart-track"><div class="bchart-fill" style="width:11%;background:var(--green)"></div></div><div class="bchart-num">1</div></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="card-title">Jenis Alat — Temuan</span></div>
+          <div class="bchart-row"><div class="bchart-lbl">APAR</div><div class="bchart-track"><div class="bchart-fill" style="width:33%;background:var(--accent)"></div></div><div class="bchart-num">3</div></div>
+          <div class="bchart-row"><div class="bchart-lbl">Full Body Harness</div><div class="bchart-track"><div class="bchart-fill" style="width:22%;background:var(--purple)"></div></div><div class="bchart-num">2</div></div>
+          <div class="bchart-row"><div class="bchart-lbl">Crane Workshop</div><div class="bchart-track"><div class="bchart-fill" style="width:22%;background:var(--yellow)"></div></div><div class="bchart-num">2</div></div>
+          <div class="bchart-row"><div class="bchart-lbl">Lainnya</div><div class="bchart-track"><div class="bchart-fill" style="width:22%;background:var(--text3)"></div></div><div class="bchart-num">2</div></div>
+        </div>
+      </div>
+    </div><!-- /v-dashboard -->
+
+
+    <!-- ══ FORM TINDAK LANJUT ══ -->
+    <div class="view" id="v-form-tl">
+      <div class="form-header">
+        <div class="fh-left">
+          <div class="fh-title">Form Tindak Lanjut Temuan</div>
+          <div class="fh-sub">Isi progress perbaikan temuan inspeksi di area Anda</div>
+        </div>
+        <span class="fid" id="tl-id">-</span>
+      </div>
+
+      <div class="form-wrap">
+        <div class="form-col">
+
+          <!-- Referensi Temuan -->
+          <div class="fsec anim">
+            <div class="fsec-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+              Referensi Temuan
+            </div>
+            <div class="r2">
+              <div class="field">
+                <label class="lbl">No. Form Inspeksi <span class="req">*</span></label>
+                <input type="text" id="tl-ref-ins" placeholder="INS-2026-048" oninput="calcSummary()" />
+              </div>
+              <div class="field">
+                <label class="lbl">No. Tindak Lanjut</label>
+                <input type="text" id="tl-ref-no" placeholder="TL-2026-009" readonly style="background:var(--bg4);color:var(--text3)" />
+              </div>
+            </div>
+            <div class="r3">
+              <div class="field">
+                <label class="lbl">No. Asset <span class="req">*</span></label>
+                <input type="text" id="tl-asset" placeholder="APR-048" oninput="calcSummary()" />
+              </div>
+              <div class="field">
+                <label class="lbl">Jenis Alat <span class="req">*</span></label>
+                <input type="text" id="tl-alat" placeholder="APAR" oninput="calcSummary()" />
+              </div>
+              <div class="field">
+                <label class="lbl">Lokasi</label>
+                <input type="text" id="tl-lokasi" placeholder="WS CIA · KGB" />
+              </div>
+            </div>
+            <div class="field">
+              <label class="lbl">Deskripsi Temuan Asal</label>
+              <textarea id="tl-temuan-asal" placeholder="Salin deskripsi temuan dari hasil inspeksi..." style="min-height:60px"></textarea>
+            </div>
+          </div>
+
+          <!-- Tindakan Perbaikan -->
+          <div class="fsec">
+            <div class="fsec-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+              </svg>
+              Tindakan Perbaikan
+            </div>
+            <div class="field">
+              <label class="lbl">Tindakan yang Dilakukan <span class="req">*</span></label>
+              <textarea id="tl-tindakan" placeholder="Jelaskan tindakan perbaikan yang sudah atau sedang dilakukan..." oninput="calcSummary()"></textarea>
+            </div>
+            <div class="r2">
+              <div class="field">
+                <label class="lbl">Tanggal Mulai <span class="req">*</span></label>
+                <input type="date" id="tl-tgl-mulai" />
+              </div>
+              <div class="field">
+                <label class="lbl">Target Selesai <span class="req">*</span></label>
+                <input type="date" id="tl-tgl-target" />
+              </div>
+            </div>
+            <div class="r2">
+              <div class="field">
+                <label class="lbl">Dikerjakan Oleh</label>
+                <input type="text" id="tl-pekerja" placeholder="Nama teknisi / tim" />
+              </div>
+              <div class="field">
+                <label class="lbl">Biaya Perbaikan (Rp)</label>
+                <input type="text" id="tl-biaya" placeholder="0" />
+              </div>
+            </div>
+            <div class="field">
+              <label class="lbl">Catatan Tambahan</label>
+              <textarea id="tl-catatan" placeholder="Kendala, kebutuhan material, atau info lain..." style="min-height:60px"></textarea>
+            </div>
+          </div>
+
+          <!-- Status & Foto -->
+          <div class="fsec">
+            <div class="fsec-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+              </svg>
+              Status Tindak Lanjut
+            </div>
+
+            <div class="field">
+              <label class="lbl">Status Saat Ini <span class="req">*</span></label>
+              <div class="status-grid">
+                <div class="status-opt">
+                  <input type="radio" name="tl-status" id="ts-selesai" value="Selesai" onchange="calcSummary()">
+                  <label for="ts-selesai"><span class="s-icon">✅</span>Selesai<span class="s-sub">Perbaikan tuntas</span></label>
+                </div>
+                <div class="status-opt">
+                  <input type="radio" name="tl-status" id="ts-proses" value="Dalam Proses" onchange="calcSummary()">
+                  <label for="ts-proses"><span class="s-icon">🔧</span>Dalam Proses<span class="s-sub">Sedang dikerjakan</span></label>
+                </div>
+                <div class="status-opt">
+                  <input type="radio" name="tl-status" id="ts-tunda" value="Ditunda" onchange="calcSummary()">
+                  <label for="ts-tunda"><span class="s-icon">⏸</span>Ditunda<span class="s-sub">Menunggu material/izin</span></label>
+                </div>
+                <div class="status-opt">
+                  <input type="radio" name="tl-status" id="ts-tidak" value="Tidak Bisa Ditangani" onchange="calcSummary()">
+                  <label for="ts-tidak"><span class="s-icon">🚫</span>Tidak Bisa Ditangani<span class="s-sub">Eskalasi ke supervisor</span></label>
+                </div>
+              </div>
+            </div>
+
+            <div class="field" style="margin-top:14px">
+              <label class="lbl">Foto Bukti Perbaikan <span class="req">*</span></label>
+              <div class="foto-zone">
+                <input type="file" id="tl-foto" accept="image/*" multiple onchange="handleFoto(this)" />
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="17 8 12 3 7 8"/>
+                  <line x1="12" y1="3" x2="12" y2="15"/>
+                </svg>
+                <p>Tap untuk upload foto perbaikan</p>
+                <span style="font-size:11px;color:var(--accent)">Min. 1 foto · maks 3 foto · JPG/PNG</span>
+              </div>
+              <div class="foto-preview" id="foto-preview"></div>
+              <div class="foto-status" id="foto-status"></div>
+            </div>
+          </div>
+
+          <div class="fnav">
+            <button class="btn" style="padding:9px 14px" onclick="showToast('Draft disimpan 💾')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px">
+                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                <polyline points="17 21 17 13 7 13 7 21"/>
+                <polyline points="7 3 7 8 15 8"/>
+              </svg>
+              Simpan Draft
+            </button>
+            <button class="btn btn-green" style="flex:1" onclick="doSubmitTL()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:13px;height:13px">
+                <line x1="22" y1="2" x2="11" y2="13"/>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+              </svg>
+              Kirim Tindak Lanjut
+            </button>
+          </div>
+        </div><!-- /form-col -->
+
+        <!-- Aside -->
+        <div style="position:sticky;top:0">
+          <div class="card" style="margin-bottom:12px">
+            <div class="card-title" style="margin-bottom:12px">Ringkasan</div>
+            <div class="sum-row"><span class="sum-key">No. Inspeksi</span><span class="sum-val" id="sum-ins">—</span></div>
+            <div class="sum-row"><span class="sum-key">No. Asset</span><span class="sum-val" id="sum-asset">—</span></div>
+            <div class="sum-row"><span class="sum-key">Jenis Alat</span><span class="sum-val" id="sum-alat">—</span></div>
+            <div class="sum-row"><span class="sum-key">Status</span><span id="sum-status">—</span></div>
+            <div class="sum-row">
+              <span class="sum-key">Tindakan</span>
+              <span class="sum-val" id="sum-tindakan" style="font-size:11px;max-width:120px;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">—</span>
+            </div>
+          </div>
+
+          <div class="card" style="margin-bottom:12px">
+            <div class="card-title" style="margin-bottom:10px">Panduan</div>
+            <div style="font-size:12.5px;color:var(--text2);line-height:1.75">
+              <div style="margin-bottom:7px">🔍 <b>Referensi</b> — isi no. inspeksi &amp; asset yang ada temuannya</div>
+              <div style="margin-bottom:7px">🔧 <b>Tindakan</b> — jelaskan apa yang sudah dikerjakan</div>
+              <div style="margin-bottom:7px">📸 <b>Foto bukti</b> — wajib min. 1 foto kondisi setelah perbaikan</div>
+              <div>✅ <b>Status</b> — pilih status terkini tindak lanjut</div>
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-block" onclick="doSubmitTL()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:13px;height:13px">
+              <line x1="22" y1="2" x2="11" y2="13"/>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+            Kirim Tindak Lanjut
+          </button>
+        </div>
+      </div>
+    </div><!-- /v-form-tl -->
+
+
+    <!-- ══ TUGAS SAYA ══ -->
+    <div class="view" id="v-tugasku">
+      <div class="filter-bar">
+        <input class="search-inp" placeholder="🔍 Cari asset, alat, temuan…" oninput="filterTugas()" />
+        <select class="flt-sel" onchange="filterTugas()">
+          <option>Semua Status</option>
+          <option>Dalam Proses</option>
+          <option>Ditunda</option>
+          <option>Overdue</option>
+        </select>
+        <button class="tb-btn primary" onclick="goNav('form-tl', null)">+ Tindak Lanjut</button>
+      </div>
+      <div class="card">
+        <table class="tbl">
+          <thead>
+            <tr><th>No. TL</th><th>Ref. Inspeksi</th><th>Asset</th><th>Jenis Alat</th><th>Risiko</th><th>Status</th><th>Target</th><th></th></tr>
+          </thead>
+          <tbody id="tugas-body"></tbody>
+        </table>
+      </div>
+    </div><!-- /v-tugasku -->
+
+
+    <!-- ══ OVERDUE ══ -->
+    <div class="view" id="v-overdue">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+        <div>
+          <div style="font-size:18px;font-weight:700;color:var(--red)">⚠ Overdue</div>
+          <div style="font-size:13px;color:var(--text2);margin-top:2px">Tindak lanjut yang melewati target waktu</div>
+        </div>
+        <span class="badge b-red" style="font-size:13px;padding:5px 14px">2 Item Overdue</span>
+      </div>
+      <div id="overdue-list"></div>
+    </div><!-- /v-overdue -->
+
+
+    <!-- ══ RIWAYAT ══ -->
+    <div class="view" id="v-riwayat">
+      <div class="filter-bar">
+        <input class="search-inp" placeholder="🔍 Cari no. TL, asset, alat…" oninput="filterRiwayat()" />
+        <select class="flt-sel"><option>Semua Status</option><option>Selesai</option><option>Dalam Proses</option><option>Ditunda</option></select>
+        <select class="flt-sel"><option>Semua Bulan</option><option>Juni 2026</option><option>Mei 2026</option></select>
+      </div>
+      <div class="card">
+        <table class="tbl">
+          <thead>
+            <tr><th>No. TL</th><th>Ref. Inspeksi</th><th>Asset</th><th>Jenis Alat</th><th>Status</th><th>Selesai</th><th></th></tr>
+          </thead>
+          <tbody id="riwayat-body"></tbody>
+        </table>
+      </div>
+    </div><!-- /v-riwayat -->
+
+  </div><!-- /views -->
+</div><!-- /main -->
+
+
+<!-- ══════════════════════════════════════════════════════════
+     OVERLAY — Submit result
+     ══════════════════════════════════════════════════════════ -->
+<div class="ov" id="ov">
+  <div class="ov-card">
+    <div class="ov-icon">✅</div>
+    <div class="ov-title ok">Berhasil Dikirim!</div>
+    <div class="ov-msg" id="ov-msg">Tindak lanjut tersimpan.</div>
+    <button class="btn btn-primary" onclick="resetFormTL()" style="width:100%">Isi Form Baru</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast-el"><span id="toast-txt"></span></div>
+
+<!-- Script utama -->
+<script src="Java/picjs.js"></script>
+
+</body>
+</html>

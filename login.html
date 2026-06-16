@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#2563eb" />
+  <title>Login — ISAM</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style/loginstyl.css" />
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-pattern"></div>
+
+<div class="login-wrap">
+
+  <!-- ── LEFT PANEL (tetap sama) ── -->
+  <div class="left-panel">
+    <div class="lp-logo">
+      <div class="lp-logo-mark">
+        <!-- LOGO PLACEHOLDER -->
+        <svg viewBox="0 0 24 24">
+          <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="lp-logo-title">ISAM</div>
+        <div class="lp-logo-sub">v1.0 · BIB Mining Project</div>
+      </div>
+    </div>
+
+    <div class="lp-center">
+      <div class="lp-headline">Inspection &amp; System Asset Management</div>
+      <div class="lp-desc">
+        Platform digital untuk monitoring inspeksi alat, manajemen temuan, dan tindak lanjut
+        sarana prasarana tambang — KGB &amp; GRB.
+      </div>
+      <div class="lp-features">
+        <div class="lp-feat">
+          <div class="lp-feat-icon">📋</div>
+          <div class="lp-feat-text">Form inspeksi digital — 12 jenis alat</div>
+        </div>
+        <div class="lp-feat">
+          <div class="lp-feat-icon">📊</div>
+          <div class="lp-feat-text">Dashboard real-time per area &amp; PIC</div>
+        </div>
+        <div class="lp-feat">
+          <div class="lp-feat-icon">🔔</div>
+          <div class="lp-feat-text">Notifikasi otomatis temuan &amp; overdue</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Company Logos -->
+    <div class="lp-logos">
+      <img src="Source/logo-ck.png" alt="Cipta Kridatama" class="lp-logo-img" />
+      <div class="lp-logo-divider"></div>
+      <img src="Source/logo-bib.png" alt="PT BIB" class="lp-logo-img" />
+    </div>
+    <div class="lp-bottom">DIV ASSET MANAGEMENT · BIB Mining</div>
+  </div><!-- /left-panel -->
+
+
+  <!-- ── RIGHT PANEL ── -->
+  <div class="right-panel">
+
+    <div class="rp-heading">Masuk ke Dashboard</div>
+    <div class="rp-sub">Untuk PIC dan Admin saja — Inspector tidak perlu login</div>
+
+    <!-- Alert Error -->
+    <div class="alert-error" id="alert-error">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+        <line x1="12" y1="9" x2="12" y2="13"/>
+        <line x1="12" y1="17" x2="12.01" y2="17"/>
+      </svg>
+      <span id="alert-msg">Email atau password salah.</span>
+    </div>
+
+    <!-- Email -->
+    <div class="field">
+      <label class="lbl" for="inp-email">Email</label>
+      <div class="input-wrap">
+        <div class="input-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+        </div>
+        <input
+          type="email"
+          id="inp-email"
+          placeholder="email@perusahaan.com"
+          autocomplete="email"
+          inputmode="email"
+          oninput="clearErr()"
+        />
+      </div>
+      <div class="err-msg" id="err-email">Email tidak boleh kosong.</div>
+    </div>
+
+    <!-- Password -->
+    <div class="field">
+      <label class="lbl" for="inp-password">Password</label>
+      <div class="input-wrap">
+        <div class="input-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+        </div>
+        <input
+          type="password"
+          id="inp-password"
+          placeholder="Masukkan password…"
+          autocomplete="current-password"
+          oninput="clearErr()"
+        />
+        <div class="pw-toggle" onclick="togglePw()" title="Tampilkan password">
+          <span id="pw-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </span>
+        </div>
+      </div>
+      <div class="err-msg" id="err-password">Password tidak boleh kosong.</div>
+    </div>
+
+    <!-- Remember & Forgot -->
+    <div class="options-row">
+      <label class="remember-wrap">
+        <input type="checkbox" id="remember-me" />
+        <div class="cb-box"></div>
+        <span class="remember-lbl">Ingat saya</span>
+      </label>
+      <a class="forgot-link" onclick="showToast('Hubungi admin untuk reset password 📧')">Lupa password?</a>
+    </div>
+
+    <!-- Login Button -->
+    <button class="login-btn" id="login-btn" onclick="doLogin()">
+      <span class="btn-spinner"></span>
+      <span class="btn-text">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:15px;height:15px">
+          <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+          <polyline points="10 17 15 12 10 7"/>
+          <line x1="15" y1="12" x2="3" y2="12"/>
+        </svg>
+        Masuk
+      </span>
+    </button>
+
+    <!-- Divider -->
+    <div class="or-divider"><span>atau</span></div>
+
+    <!-- Form Inspeksi shortcut -->
+    <a class="inspeksi-link" href="https://isamckbib.github.io/System_inspeksi/" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+        <line x1="16" y1="13" x2="8" y2="13"/>
+        <line x1="16" y1="17" x2="8" y2="17"/>
+      </svg>
+      Buka Form Inspeksi (tidak perlu login)
+    </a>
+
+    <!-- Role info cards -->
+    <div class="role-info-grid">
+      <div class="ri-card">
+        <div class="ri-icon">🔧</div>
+        <div class="ri-name">PIC</div>
+        <div class="ri-desc">Lihat &amp; close temuan areamu</div>
+      </div>
+      <div class="ri-card">
+        <div class="ri-icon">⚙️</div>
+        <div class="ri-name">Admin</div>
+        <div class="ri-desc">Kelola semua data &amp; master</div>
+      </div>
+      <div class="ri-card">
+        <div class="ri-icon">👁</div>
+        <div class="ri-name">Viewer</div>
+        <div class="ri-desc">Lihat laporan &amp; dashboard</div>
+      </div>
+    </div>
+
+    <!-- Network hint -->
+    <div id="network-hint" style="display:none;text-align:center;margin-top:10px;font-size:12px;color:var(--text3)">
+      ⏳ Menghubungi server…
+    </div>
+
+  </div><!-- /right-panel -->
+</div><!-- /login-wrap -->
+
+<div class="login-footer">ISAM v1.0 · DIV ASSET MANAGEMENT · BIB Mining Project</div>
+
+<div class="toast" id="toast-el"><span id="toast-txt"></span></div>
+
+<script src="Java/login.js"></script>
+</body>
+</html>

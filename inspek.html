@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ISAM-Inspection</title>
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Stylesheet utama -->
+  <link rel="stylesheet" href="style/inspekstyl.css" />
+  <!-- Di index.html — sudah ada, tidak perlu ubah -->
+<script src="Java/authenguard.js"></script>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════
+     SIDEBAR
+     ══════════════════════════════════════════════════════════ -->
+<aside class="sidebar">
+
+  <!-- Logo -->
+  <div class="logo-wrap">
+    <div class="logo-mark">
+      <svg viewBox="0 0 24 24">
+        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+      </svg>
+    </div>
+    <div>
+      <div class="logo-title">Inspeksi<span>Tools</span></div>
+      <div class="logo-sub">v1.0 · Inspection</div>
+    </div>
+  </div>
+
+  <!-- Nav -->
+  <nav class="nav">
+
+    <div class="nav-group-label">Utama</div>
+    <div class="nav-item active" onclick="goNav('dashboard', this)">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <rect x="3" y="3" width="7" height="7" rx="1"/>
+        <rect x="14" y="3" width="7" height="7" rx="1"/>
+        <rect x="3" y="14" width="7" height="7" rx="1"/>
+        <rect x="14" y="14" width="7" height="7" rx="1"/>
+      </svg>
+      Dashboard
+    </div>
+
+    <div class="nav-item" onclick="window.open('https://dimayy17.github.io/inspeksi-v2/', '_blank')">
+    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+        <line x1="9" y1="13" x2="15" y2="13"/>
+        <line x1="9" y1="17" x2="15" y2="17"/>
+    </svg>
+    Form Inspeksi
+</div>
+
+    <div class="nav-item" onclick="goNav('waiting', this)">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <circle cx="12" cy="12" r="10"/>
+        <polyline points="12 6 12 12 16 14"/>
+      </svg>
+      Waiting Inspection
+      <span class="nav-pill">30</span>
+    </div>
+
+    <div class="nav-item" onclick="goNav('list', this)">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <line x1="8" y1="6" x2="21" y2="6"/>
+        <line x1="8" y1="12" x2="21" y2="12"/>
+        <line x1="8" y1="18" x2="21" y2="18"/>
+        <line x1="3" y1="6" x2="3.01" y2="6"/>
+        <line x1="3" y1="12" x2="3.01" y2="12"/>
+        <line x1="3" y1="18" x2="3.01" y2="18"/>
+      </svg>
+      Riwayat
+      <span class="nav-pill">12</span>
+    </div>
+
+    <div class="nav-item" onclick="goNav('overdue', this)">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+        <line x1="12" y1="9" x2="12" y2="13"/>
+        <line x1="12" y1="17" x2="12.01" y2="17"/>
+      </svg>
+      Overdue
+      <span class="nav-pill red">12</span>
+    </div>
+
+    <div class="nav-group-label" style="margin-top:6px">Manajemen</div>
+
+    <div class="nav-item" onclick="showToast('Fitur Temuan segera hadir 🚧')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <circle cx="11" cy="11" r="8"/>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      Temuan
+    </div>
+
+    <div class="nav-item" onclick="showToast('Fitur Laporan segera hadir 📄')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+      </svg>
+      Laporan
+    </div>
+
+    <div class="nav-group-label" style="margin-top:6px">Informasi</div>
+
+    <div class="nav-item" onclick="goNav('piclist', this)">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+      </svg>
+      List PIC Area
+    </div>
+
+    <div class="nav-item" onclick="showToast('Fitur Pengaturan segera hadir ⚙️')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>
+      </svg>
+      Pengaturan
+    </div>
+
+    <button class="logout-btn" onclick="isamLogout()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+        <polyline points="16 17 21 12 16 7"/>
+        <line x1="21" y1="12" x2="9" y2="12"/>
+      </svg>
+      Back to home
+    </button>
+
+  </nav>
+
+  <!-- User -->
+  <div class="sidebar-footer">
+    <div class="user-row">
+      <div class="ava">HS</div>
+      <div>
+        <div class="user-name">Hendra Suprianoor</div>
+        <div class="user-role">Inspektor</div>
+      </div>
+    </div>
+  </div>
+
+</aside><!-- /sidebar -->
+
+
+<!-- ══════════════════════════════════════════════════════════
+     MAIN
+     ══════════════════════════════════════════════════════════ -->
+<div class="main">
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="page-breadcrumb" id="page-title">Dashboard</div>
+    <span class="topbar-mono" id="today-lbl"></span>
+
+    <button class="tb-btn" onclick="goNav('list', null)">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="8" y1="6" x2="21" y2="6"/>
+        <line x1="8" y1="12" x2="21" y2="12"/>
+        <line x1="8" y1="18" x2="21" y2="18"/>
+        <line x1="3" y1="6" x2="3.01" y2="6"/>
+        <line x1="3" y1="12" x2="3.01" y2="12"/>
+        <line x1="3" y1="18" x2="3.01" y2="18"/>
+      </svg>
+      Riwayat
+    </button>
+
+    <button class="tb-btn primary" onclick="goNav('form', null)">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="12" y1="5" x2="12" y2="19"/>
+        <line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+      Inspeksi Baru
+    </button>
+  </header>
+
+  <!-- ── VIEWS ── -->
+  <div class="views">
+
+    <!-- ══ DASHBOARD ══ -->
+    <div class="view on" id="v-dashboard">
+      <div class="kpi-grid anim">
+        <div class="kpi" style="cursor:pointer" onclick="goNav('list', null)">
+          <div class="kpi-accent" style="background:var(--accent)"></div>
+          <div class="kpi-label">Total Inspeksi</div>
+          <div class="kpi-num" style="color:var(--accent)">48</div>
+          <div class="kpi-desc">Bulan Juni 2026</div>
+        </div>
+        <div class="kpi" style="cursor:pointer" onclick="goNav('list', null)">
+          <div class="kpi-accent" style="background:var(--green)"></div>
+          <div class="kpi-label">Lulus</div>
+          <div class="kpi-num" style="color:var(--green)">35</div>
+          <div class="kpi-desc">72.9% pass rate</div>
+        </div>
+        <div class="kpi" style="cursor:pointer" onclick="goNav('waiting', null)">
+          <div class="kpi-accent" style="background:var(--yellow)"></div>
+          <div class="kpi-label">Waiting Inspeksi</div>
+          <div class="kpi-num" style="color:var(--yellow)">30</div>
+          <div class="kpi-desc">Perlu segera inspeksi</div>
+        </div>
+        <div class="kpi" style="cursor:pointer" onclick="goNav('overdue', null)">
+          <div class="kpi-accent" style="background:var(--red)"></div>
+          <div class="kpi-label">Overdue</div>
+          <div class="kpi-num" style="color:var(--red)">4</div>
+          <div class="kpi-desc">Perlu korektif segera</div>
+        </div>
+        <div class="kpi" style="cursor:pointer" onclick="showToast('Lihat detail temuan 🔍')">
+          <div class="kpi-accent" style="background:var(--orange)"></div>
+          <div class="kpi-label">Temuan</div>
+          <div class="kpi-num" style="color:var(--orange)">9</div>
+          <div class="kpi-desc">Perlu tindak lanjut</div>
+        </div>
+      </div>
+
+      <div class="dash-grid">
+        <!-- Tabel inspeksi terbaru -->
+        <div class="card">
+          <div class="card-head">
+            <span class="card-title">Inspeksi Terbaru</span>
+            <span class="card-link" onclick="goNav('list', null)">Lihat semua →</span>
+          </div>
+          <table class="tbl">
+            <thead>
+              <tr><th>No.</th><th>Lokasi</th><th>Jenis Alat</th><th>Status</th><th>Tanggal</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="em">INS-048</td><td>WS CIA · KGB</td><td>APAR</td>
+                <td><span class="badge bg-green"><span class="bdot" style="background:var(--green)"></span>Lulus</span></td>
+                <td style="font-family:var(--mono);font-size:11px;color:var(--text3)">07/06/26</td>
+              </tr>
+              <tr>
+                <td class="em">INS-047</td><td>Iglo HE · GRB</td><td>Crane Workshop</td>
+                <td><span class="badge bg-yellow"><span class="bdot" style="background:var(--yellow)"></span>Perhatian</span></td>
+                <td style="font-family:var(--mono);font-size:11px;color:var(--text3)">06/06/26</td>
+              </tr>
+              <tr>
+                <td class="em">INS-046</td><td>Bay CP · KGB</td><td>Full Body Harness</td>
+                <td><span class="badge bg-red"><span class="bdot" style="background:var(--red)"></span>Gagal</span></td>
+                <td style="font-family:var(--mono);font-size:11px;color:var(--text3)">05/06/26</td>
+              </tr>
+              <tr>
+                <td class="em">INS-045</td><td>PCR · KGB</td><td>Sling / Webbing</td>
+                <td><span class="badge bg-green"><span class="bdot" style="background:var(--green)"></span>Lulus</span></td>
+                <td style="font-family:var(--mono);font-size:11px;color:var(--text3)">04/06/26</td>
+              </tr>
+              <tr>
+                <td class="em">INS-044</td><td>SSB · GRB</td><td>Tangga Portable</td>
+                <td><span class="badge bg-blue"><span class="bdot" style="background:var(--accent)"></span>Draft</span></td>
+                <td style="font-family:var(--mono);font-size:11px;color:var(--text3)">03/06/26</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Progress & Aktivitas -->
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div class="card">
+            <div class="card-head"><span class="card-title">Progress Bulan Ini</span></div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px">
+                  <span style="color:var(--text2)">Lulus</span>
+                  <span style="color:var(--green);font-family:var(--mono);font-weight:600">35 / 48</span>
+                </div>
+                <div class="progbar"><div class="progfill" style="width:73%;background:var(--green)"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px">
+                  <span style="color:var(--text2)">Perhatian</span>
+                  <span style="color:var(--yellow);font-family:var(--mono);font-weight:600">9 / 48</span>
+                </div>
+                <div class="progbar"><div class="progfill" style="width:19%;background:var(--yellow)"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px">
+                  <span style="color:var(--text2)">Gagal</span>
+                  <span style="color:var(--red);font-family:var(--mono);font-weight:600">4 / 48</span>
+                </div>
+                <div class="progbar"><div class="progfill" style="width:8%;background:var(--red)"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-head"><span class="card-title">Aktivitas Terkini</span></div>
+            <div class="act-item"><div class="act-dot-c" style="background:var(--green)"></div><div><div class="act-text">INS-048 disubmit</div><div class="act-time">Hari ini · 09:14</div></div></div>
+            <div class="act-item"><div class="act-dot-c" style="background:var(--yellow)"></div><div><div class="act-text">Temuan Crane — Iglo HE</div><div class="act-time">Kemarin · 15:30</div></div></div>
+            <div class="act-item"><div class="act-dot-c" style="background:var(--red)"></div><div><div class="act-text">INS-046 FBH — Gagal</div><div class="act-time">05 Jun · 11:00</div></div></div>
+            <div class="act-item"><div class="act-dot-c" style="background:var(--accent)"></div><div><div class="act-text">Draft INS-044 disimpan</div><div class="act-time">03 Jun · 16:45</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /v-dashboard -->
+
+
+    <!-- ══ WAITING INSPECTION ══ -->
+    <div class="view" id="v-waiting">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+        <div>
+          <div style="font-size:18px;font-weight:700">Waiting Inspection</div>
+          <div style="font-size:13px;color:var(--text2);margin-top:2px">Alat yang belum / jadwal akan diinspeksi</div>
+        </div>
+        <button class="tb-btn primary" onclick="goNav('form', null)">+ Inspeksi Baru</button>
+      </div>
+      <div class="filter-bar">
+        <input class="search-inp" placeholder="🔍 Cari asset, lokasi, jenis alat…" oninput="filterWaiting()" />
+        <select class="flt-sel"><option>Semua Area</option><option>KGB</option><option>GRB</option></select>
+        <select class="flt-sel"><option>Semua Prioritas</option><option>Segera</option><option>Normal</option></select>
+      </div>
+      <div class="card">
+        <table class="tbl" id="waiting-tbl">
+          <thead>
+            <tr><th>No. Asset</th><th>Lokasi</th><th>Jenis Alat</th><th>Jadwal</th><th>Terakhir Inspeksi</th><th>Status</th><th></th></tr>
+          </thead>
+          <tbody id="waiting-body"></tbody>
+        </table>
+      </div>
+    </div><!-- /v-waiting -->
+
+
+    <!-- ══ OVERDUE ══ -->
+    <div class="view" id="v-overdue">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+        <div>
+          <div style="font-size:18px;font-weight:700;color:var(--red)">⚠ Overdue</div>
+          <div style="font-size:13px;color:var(--text2);margin-top:2px">Item yang melewati jadwal inspeksi atau tindakan korektif</div>
+        </div>
+        <span class="badge bg-red" style="font-size:13px;padding:5px 14px">12 Item Overdue</span>
+      </div>
+      <div class="filter-bar">
+        <input class="search-inp" placeholder="🔍 Cari asset, lokasi…" oninput="filterOverdue()" />
+        <select class="flt-sel"><option>Semua Tipe</option><option>Inspeksi Terlambat</option><option>Korektif Belum Selesai</option></select>
+      </div>
+      <div class="card">
+        <table class="tbl">
+          <thead>
+            <tr><th>No. Asset</th><th>Lokasi</th><th>Jenis Alat</th><th>Tipe Overdue</th><th>Hari Terlambat</th><th>PIC</th><th></th></tr>
+          </thead>
+          <tbody id="overdue-body"></tbody>
+        </table>
+      </div>
+    </div><!-- /v-overdue -->
+
+
+    <!-- ══ RIWAYAT ══ -->
+    <div class="view" id="v-list">
+      <div class="filter-bar">
+        <input class="search-inp" placeholder="🔍 Cari nomor, lokasi, jenis alat…" oninput="filterList()" />
+        <select class="flt-sel"><option>Semua Status</option><option>Lulus</option><option>Perhatian</option><option>Gagal</option><option>Draft</option></select>
+        <select class="flt-sel"><option>Semua Bulan</option><option>Juni 2026</option><option>Mei 2026</option><option>April 2026</option></select>
+        <button class="tb-btn primary" onclick="goNav('form', null)">+ Baru</button>
+      </div>
+      <div class="card">
+        <table class="tbl">
+          <thead>
+            <tr><th>No. Inspeksi</th><th>Lokasi</th><th>Jenis Alat</th><th>No. Asset</th><th>Status</th><th>Tanggal</th><th></th></tr>
+          </thead>
+          <tbody id="list-body"></tbody>
+        </table>
+      </div>
+    </div><!-- /v-list -->
+
+
+    <!-- ══ LIST PIC AREA ══ -->
+    <div class="view" id="v-piclist">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+        <div>
+          <div style="font-size:18px;font-weight:700">List PIC Area</div>
+          <div style="font-size:13px;color:var(--text2);margin-top:2px">Penanggung jawab per area — KGB &amp; GRB</div>
+        </div>
+        <button class="tb-btn" onclick="showToast('Fitur tambah PIC segera hadir 🚧')">+ Tambah PIC</button>
+      </div>
+      <div class="sec-divider">KGB — Kalimantan Group B</div>
+      <div class="pic-grid" id="pic-grid-kgb"></div>
+      <div class="sec-divider" style="margin-top:16px">GRB — Group B Replacement</div>
+      <div class="pic-grid" id="pic-grid-grb"></div>
+    </div><!-- /v-piclist -->
+</div><!-- /main -->
+
+
+<!-- ══════════════════════════════════════════════════════════
+     OVERLAY — Submit result
+     ══════════════════════════════════════════════════════════ -->
+<div class="ov" id="ov">
+  <div class="ov-card">
+    <div class="ov-icon" id="ov-i">✅</div>
+    <div class="ov-title ok" id="ov-t">Berhasil Dikirim!</div>
+    <div class="ov-msg" id="ov-m">Data tersimpan.</div>
+    <button class="btn btn-primary" onclick="resetFormFull()" style="width:100%">Isi Form Baru</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast-el"><span id="toast-txt"></span></div>
+
+<!-- Script utama -->
+<script src="Java/inspekjs.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#2563eb" />
+  <title>ISAM — Safety Captain</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style/safetystle.css" />
+  <script src="Java/authenguard.js"></script>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════
+     SIDEBAR
+     ══════════════════════════════════════════════════════════ -->
+<aside class="sidebar">
+
+  <div class="logo-wrap">
+    <!-- Hamburger — hanya tampil di mobile -->
+    <div class="mobile-hamburger" id="hamburger-btn" onclick="toggleDrawer()">
+      <span></span><span></span><span></span>
+    </div>
+
+    <div class="logo-mark">
+      <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+    </div>
+    <div>
+      <div class="logo-title">Monitoring<span>Tools</span></div>
+      <div class="logo-sub">v1.0 · Safety Captain</div>
+    </div>
+  </div>
+
+  <nav class="nav">
+    <div class="nav-group-label">Dashboard</div>
+    <div class="nav-item active" onclick="goNav('captain',this)">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+        <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+      </svg>
+      Safety Captain
+    </div>
+
+    <div class="nav-group-label" style="margin-top:6px">PIC Area</div>
+    <div class="nav-item" onclick="goNav('pic-area',this);renderPicDashboard()">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+      </svg>
+      Dashboard PIC
+      <span class="nav-pill np-blue">10</span>
+    </div>
+    <div class="nav-item" onclick="goNav('pic-performa',this);renderPerforma()">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+      </svg>
+      Performa PIC
+    </div>
+
+    <div class="nav-group-label" style="margin-top:6px">Monitoring</div>
+    <div class="nav-item" onclick="showToast('Fitur Approval segera hadir ✅')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <polyline points="9 11 12 14 22 4"/>
+        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+      </svg>
+      Approval
+      <span class="nav-pill np-yellow">5</span>
+    </div>
+    <div class="nav-item" onclick="showToast('Fitur Alert segera hadir 🚨')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+        <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+      </svg>
+      Alert
+      <span class="nav-pill np-red">3</span>
+    </div>
+    <div class="nav-item" onclick="showToast('Fitur Laporan segera hadir 📄')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+      </svg>
+      Laporan
+    </div>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="user-card">
+      <div class="user-top">
+        <div class="user-ava" id="sidebar-ava">AS</div>
+        <div>
+          <div class="user-name" id="sidebar-nama">Ahmad Surya</div>
+          <div class="user-role-badge">🛡 Safety Captain</div>
+        </div>
+      </div>
+    </div>
+    <button class="logout-btn" onclick="isamLogout()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+        <polyline points="16 17 21 12 16 7"/>
+        <line x1="21" y1="12" x2="9" y2="12"/>
+      </svg>
+      Logout
+    </button>
+  </div>
+
+</aside><!-- /sidebar -->
+
+
+<!-- ══ MOBILE QUICK NAV (horizontal pill scroll) ══ -->
+<div class="mobile-quick-nav" id="mobile-quick-nav">
+  <div class="mqn-item active" data-view="captain"      onclick="goNav('captain',null);setMqnActive(this)">📊 Dashboard</div>
+  <div class="mqn-item"        data-view="pic-area"     onclick="goNav('pic-area',null);renderPicDashboard();setMqnActive(this)">👥 PIC Area</div>
+  <div class="mqn-item"        data-view="pic-performa" onclick="goNav('pic-performa',null);renderPerforma();setMqnActive(this)">📈 Performa</div>
+  <div class="mqn-item"        data-view="approval"     onclick="showToast('Fitur Approval segera hadir ✅')">✅ Approval <span style="background:var(--yellow);color:#fff;font-size:9px;padding:1px 5px;border-radius:8px;font-weight:700">5</span></div>
+  <div class="mqn-item"        data-view="alert"        onclick="showToast('Fitur Alert segera hadir 🚨')">🚨 Alert <span style="background:var(--red);color:#fff;font-size:9px;padding:1px 5px;border-radius:8px;font-weight:700">3</span></div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     MAIN
+     ══════════════════════════════════════════════════════════ -->
+<div class="main">
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="topbar-title" id="topbar-title">Dashboard Safety Captain</div>
+    <span class="tb-mono" id="today-lbl"></span>
+    <div class="sup-badge">
+      <div class="sup-ava" id="topbar-ava">AS</div>
+      <div>
+        <div class="sup-name" id="topbar-nama">Ahmad Surya</div>
+        <div class="sup-role">Safety Captain</div>
+      </div>
+    </div>
+    <button class="tb-btn" onclick="showToast('Export laporan sedang disiapkan 📄')">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      Export
+    </button>
+    <button class="tb-btn primary" onclick="showToast('Buka form approval 📋')">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="9 11 12 14 22 4"/>
+        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+      </svg>
+      Approval
+    </button>
+    <button class="tb-btn danger" onclick="isamLogout()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+        <polyline points="16 17 21 12 16 7"/>
+        <line x1="21" y1="12" x2="9" y2="12"/>
+      </svg>
+      Logout
+    </button>
+  </header>
+
+  <div class="views">
+
+    <!-- ══ CAPTAIN DASHBOARD ══ -->
+    <div class="view on" id="v-captain">
+      <div class="dash-header">
+        <div>
+          <div class="dash-title" id="dash-greeting">Selamat datang 👋</div>
+          <div class="dash-sub">Ringkasan kondisi inspeksi — KGB &amp; GRB · <span id="today-full"></span></div>
+        </div>
+        <div class="dash-tabs">
+          <button class="dtab active" onclick="switchTab('harian',this)">Harian</button>
+          <button class="dtab" onclick="switchTab('mingguan',this)">Mingguan</button>
+          <button class="dtab" onclick="switchTab('bulanan',this)">Bulanan</button>
+        </div>
+      </div>
+
+      <!-- KPI -->
+      <div class="kpi-row">
+        <div class="kpi">
+          <div class="kpi-top-bar" style="background:var(--accent)"></div>
+          <div class="kpi-lbl">Total Inspeksi</div>
+          <div class="kpi-val" id="kv-total" style="color:var(--accent)">48</div>
+          <div class="kpi-meta" id="km-total">Bulan ini</div>
+          <span class="kpi-trend trend-up">▲ 12%</span>
+        </div>
+        <div class="kpi">
+          <div class="kpi-top-bar" style="background:var(--green)"></div>
+          <div class="kpi-lbl">Lulus</div>
+          <div class="kpi-val" id="kv-lulus" style="color:var(--green)">35</div>
+          <div class="kpi-meta" id="km-lulus">72.9% pass rate</div>
+          <span class="kpi-trend trend-up">▲ 5%</span>
+        </div>
+        <div class="kpi">
+          <div class="kpi-top-bar" style="background:var(--yellow)"></div>
+          <div class="kpi-lbl">Waiting</div>
+          <div class="kpi-val" id="kv-wait" style="color:var(--yellow)">30</div>
+          <div class="kpi-meta" id="km-wait">Belum diinspeksi</div>
+          <span class="kpi-trend trend-down">▼ 3%</span>
+        </div>
+        <div class="kpi">
+          <div class="kpi-top-bar" style="background:var(--red)"></div>
+          <div class="kpi-lbl">Overdue</div>
+          <div class="kpi-val" id="kv-over" style="color:var(--red)">12</div>
+          <div class="kpi-meta" id="km-over">Perlu tindakan</div>
+          <span class="kpi-trend trend-down">▲ 2</span>
+        </div>
+        <div class="kpi">
+          <div class="kpi-top-bar" style="background:var(--orange)"></div>
+          <div class="kpi-lbl">Temuan Open</div>
+          <div class="kpi-val" id="kv-temuan" style="color:var(--orange)">9</div>
+          <div class="kpi-meta" id="km-temuan">Perlu tindak lanjut</div>
+          <span class="kpi-trend trend-down">▼ 1</span>
+        </div>
+      </div>
+
+      <!-- Row 1: Tabel + Alert -->
+      <div class="row row-32">
+        <div class="card">
+          <div class="card-head">
+            <span class="card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Inspeksi Terbaru
+            </span>
+            <span class="card-action" onclick="showToast('Membuka semua riwayat 📋')">Lihat semua →</span>
+          </div>
+          <table class="tbl">
+            <thead><tr><th>No.</th><th>Lokasi</th><th>Jenis Alat</th><th>Inspektor</th><th>Status</th><th>Tanggal</th></tr></thead>
+            <tbody>
+              <tr><td class="em">INS-048</td><td>WS CIA · KGB</td><td>APAR</td><td>Budi J.</td><td><span class="badge b-green"><span class="bdot" style="background:var(--green)"></span>Lulus</span></td><td style="font-family:var(--mono);font-size:10.5px;color:var(--text3)">07/06/26</td></tr>
+              <tr><td class="em">INS-047</td><td>Iglo HE · GRB</td><td>Crane WS</td><td>Rizki A.</td><td><span class="badge b-yellow"><span class="bdot" style="background:var(--yellow)"></span>Perhatian</span></td><td style="font-family:var(--mono);font-size:10.5px;color:var(--text3)">06/06/26</td></tr>
+              <tr><td class="em">INS-046</td><td>Bay CP · KGB</td><td>Full Body Harness</td><td>Dedi K.</td><td><span class="badge b-red"><span class="bdot" style="background:var(--red)"></span>Gagal</span></td><td style="font-family:var(--mono);font-size:10.5px;color:var(--text3)">05/06/26</td></tr>
+              <tr><td class="em">INS-045</td><td>PCR · KGB</td><td>Sling / Webbing</td><td>Abdul A.</td><td><span class="badge b-green"><span class="bdot" style="background:var(--green)"></span>Lulus</span></td><td style="font-family:var(--mono);font-size:10.5px;color:var(--text3)">04/06/26</td></tr>
+              <tr><td class="em">INS-044</td><td>SSB · GRB</td><td>Tangga Portable</td><td>Ahmad R.</td><td><span class="badge b-blue"><span class="bdot" style="background:var(--accent)"></span>Draft</span></td><td style="font-family:var(--mono);font-size:10.5px;color:var(--text3)">03/06/26</td></tr>
+              <tr><td class="em">INS-043</td><td>WS CIA · KGB</td><td>Alat Listrik</td><td>Budi J.</td><td><span class="badge b-green"><span class="bdot" style="background:var(--green)"></span>Lulus</span></td><td style="font-family:var(--mono);font-size:10.5px;color:var(--text3)">02/06/26</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <span class="card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Alert &amp; Prioritas
+            </span>
+            <span class="badge b-red">3 Kritis</span>
+          </div>
+          <div class="alert-item critical">
+            <div class="ai-icon" style="background:var(--red-lt)">🚨</div>
+            <div class="ai-main"><div class="ai-title">CRN-001 — Crane WS overdue 22 hari</div><div class="ai-sub">Bay CP · KGB · PIC: Dedi Kurnia</div></div>
+            <div class="ai-right"><div class="ai-time">22 hari</div><span class="badge b-red" style="margin-top:3px">Critical</span></div>
+          </div>
+          <div class="alert-item critical">
+            <div class="ai-icon" style="background:var(--red-lt)">🚨</div>
+            <div class="ai-main"><div class="ai-title">FBH-003 — FBH korektif belum selesai</div><div class="ai-sub">Bay CP · KGB · PIC: Dedi Kurnia</div></div>
+            <div class="ai-right"><div class="ai-time">8 hari</div><span class="badge b-red" style="margin-top:3px">Critical</span></div>
+          </div>
+          <div class="alert-item high">
+            <div class="ai-icon" style="background:var(--orange-lt)">⚠️</div>
+            <div class="ai-main"><div class="ai-title">FBH-019 — Jadwal inspeksi terlewat</div><div class="ai-sub">Iglo HE · GRB · PIC: Rizki Amri</div></div>
+            <div class="ai-right"><div class="ai-time">5 hari</div><span class="badge b-orange" style="margin-top:3px">High</span></div>
+          </div>
+          <div class="alert-item medium">
+            <div class="ai-icon" style="background:var(--yellow-lt)">📋</div>
+            <div class="ai-main"><div class="ai-title">APR-005 — APAR belum diinspeksi</div><div class="ai-sub">Iglo HE · GRB · PIC: Rizki Amri</div></div>
+            <div class="ai-right"><div class="ai-time">3 hari</div><span class="badge b-yellow" style="margin-top:3px">Medium</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 2: Inspektor + Area + Distribusi -->
+      <div class="row row-4">
+        <div class="card">
+          <div class="card-head">
+            <span class="card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+              Performa Inspektor
+            </span>
+          </div>
+          <div id="inspector-list"></div>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <span class="card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Progress Per Area
+            </span>
+          </div>
+          <div id="area-progress"></div>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <span class="card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              Distribusi Status
+            </span>
+          </div>
+          <div class="stat-row" style="margin-bottom:14px">
+            <div class="stat-mini"><div class="sm-val" style="color:var(--green)">35</div><div class="sm-lbl">Lulus</div></div>
+            <div class="stat-mini"><div class="sm-val" style="color:var(--yellow)">9</div><div class="sm-lbl">Perhatian</div></div>
+            <div class="stat-mini"><div class="sm-val" style="color:var(--red)">4</div><div class="sm-lbl">Gagal</div></div>
+          </div>
+          <div>
+            <div class="bchart-row"><div class="bchart-lbl">Lulus</div><div class="bchart-track"><div class="bchart-fill" style="width:73%;background:var(--green)"></div></div><div class="bchart-num">35</div></div>
+            <div class="bchart-row"><div class="bchart-lbl">Perhatian</div><div class="bchart-track"><div class="bchart-fill" style="width:19%;background:var(--yellow)"></div></div><div class="bchart-num">9</div></div>
+            <div class="bchart-row"><div class="bchart-lbl">Gagal</div><div class="bchart-track"><div class="bchart-fill" style="width:8%;background:var(--red)"></div></div><div class="bchart-num">4</div></div>
+            <div class="bchart-row"><div class="bchart-lbl">Draft</div><div class="bchart-track"><div class="bchart-fill" style="width:4%;background:var(--accent)"></div></div><div class="bchart-num">2</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 3: Approval + Feed -->
+      <div class="row row-2">
+        <div class="card">
+          <div class="card-head">
+            <span class="card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+              Menunggu Approval
+            </span>
+            <span class="badge b-yellow">5 Pending</span>
+          </div>
+          <div id="approval-list"></div>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <span class="card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              Aktivitas Terkini
+            </span>
+            <span class="card-action" onclick="showToast('Log lengkap dibuka 📋')">Semua log →</span>
+          </div>
+          <div id="activity-feed"></div>
+        </div>
+      </div>
+    </div><!-- /v-captain -->
+
+
+    <!-- ══ PIC AREA DASHBOARD ══ -->
+    <div class="view" id="v-pic-area">
+      <div class="filter-row">
+        <div>
+          <div class="page-title">Dashboard PIC Area</div>
+          <div class="page-sub">Penanggung jawab inspeksi — Sarana Prasarana Tambang &amp; Workshop</div>
+        </div>
+        <div class="filter-pills">
+          <button class="pill active" onclick="filterArea('all',this)">Semua</button>
+          <button class="pill" onclick="filterArea('KGB',this)">KGB</button>
+          <button class="pill" onclick="filterArea('GRB',this)">GRB</button>
+        </div>
+      </div>
+      <div class="kpi-grid">
+        <div class="kpi"><div class="kpi-accent" style="background:var(--accent)"></div><div class="kpi-label">Total PIC</div><div class="kpi-num" id="kpi-total" style="color:var(--accent)">0</div><div class="kpi-desc" id="kpi-total-sub">-</div></div>
+        <div class="kpi"><div class="kpi-accent" style="background:var(--green)"></div><div class="kpi-label">Inspeksi Selesai</div><div class="kpi-num" id="kpi-done" style="color:var(--green)">0</div><div class="kpi-desc">Bulan ini</div></div>
+        <div class="kpi"><div class="kpi-accent" style="background:var(--yellow)"></div><div class="kpi-label">Waiting</div><div class="kpi-num" id="kpi-wait" style="color:var(--yellow)">0</div><div class="kpi-desc">Belum inspeksi</div></div>
+        <div class="kpi"><div class="kpi-accent" style="background:var(--red)"></div><div class="kpi-label">Overdue</div><div class="kpi-num" id="kpi-over" style="color:var(--red)">0</div><div class="kpi-desc">Perlu tindakan</div></div>
+      </div>
+      <div class="sec-lbl">Daftar PIC</div>
+      <div class="pic-grid-wrap" id="pic-grid"></div>
+      <div id="detail-wrap"></div>
+      <div class="charts-row">
+        <div class="chart-card">
+          <div class="chart-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            Inspeksi Selesai per PIC
+          </div>
+          <div id="bar-done"></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            Temuan Terbuka per PIC
+          </div>
+          <div id="bar-finding"></div>
+        </div>
+      </div>
+    </div><!-- /v-pic-area -->
+
+
+    <!-- ══ PERFORMA PIC ══ -->
+    <div class="view" id="v-pic-performa">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+        <div>
+          <div class="page-title">Performa PIC Area</div>
+          <div class="page-sub">Ranking &amp; detail kinerja — diurutkan berdasarkan % selesai</div>
+        </div>
+        <button class="tb-btn" onclick="showToast('Export performa PIC 📄')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Export
+        </button>
+      </div>
+      <div class="card">
+        <table class="tbl">
+          <thead>
+            <tr>
+              <th style="text-align:center">#</th><th>Nama PIC</th><th>Pit</th>
+              <th>✓ Selesai</th><th>⏳ Waiting</th><th>⚠ Overdue</th>
+              <th>🔍 Temuan</th><th>Progress</th><th>Status</th><th></th>
+            </tr>
+          </thead>
+          <tbody id="performa-body"></tbody>
+        </table>
+      </div>
+    </div><!-- /v-pic-performa -->
+
+  </div><!-- /views -->
+</div><!-- /main -->
+
+
+<!-- ══ BOTTOM NAV BAR (mobile fixed) ══ -->
+<div class="bottom-nav" id="bottom-nav">
+  <div class="bn-item active" id="bn-captain" onclick="goNav('captain',null);setBnActive('bn-captain')">
+    <div class="bn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+    <div class="bn-lbl">Dashboard</div>
+  </div>
+  <div class="bn-item" id="bn-pic-area" onclick="goNav('pic-area',null);renderPicDashboard();setBnActive('bn-pic-area')">
+    <div class="bn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+    <div class="bn-lbl">PIC Area</div>
+    <div class="bn-badge">10</div>
+  </div>
+  <div class="bn-item" id="bn-pic-performa" onclick="goNav('pic-performa',null);renderPerforma();setBnActive('bn-pic-performa')"
+       style="background:var(--accent);border-radius:50%;width:50px;height:50px;margin-top:-10px;flex:none;box-shadow:0 4px 14px rgba(37,99,235,.4)">
+    <div class="bn-icon" style="color:#fff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+    <div class="bn-lbl" style="color:#fff;font-size:8.5px">Performa</div>
+  </div>
+  <div class="bn-item" id="bn-approval" onclick="showToast('Fitur Approval segera hadir ✅')">
+    <div class="bn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+    <div class="bn-lbl">Approval</div>
+    <div class="bn-badge">5</div>
+  </div>
+  <div class="bn-item" id="bn-alert" onclick="showToast('Fitur Alert segera hadir 🚨')">
+    <div class="bn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+    <div class="bn-lbl">Alert</div>
+    <div class="bn-badge" style="background:var(--red)">3</div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast-el"><span id="toast-txt"></span></div>
+
+<script src="Java/safety.js"></script>
+</body>
+</html>

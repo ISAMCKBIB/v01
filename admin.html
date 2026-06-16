@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#dc2626" />
+  <title>Admin — ISAM</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style/adminstyl.css" />
+  <script src="Java/authenguard.js"></script>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════
+     SIDEBAR
+     ══════════════════════════════════════════════════════════ -->
+<aside class="sidebar">
+  <div class="logo-wrap">
+    <!-- Hamburger mobile -->
+    <div class="mobile-hamburger" id="hamburger-btn" onclick="toggleDrawer()">
+      <span></span><span></span><span></span>
+    </div>
+
+    <div class="logo-mark" style="background:var(--red)">
+      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    </div>
+    <div>
+      <div class="logo-title">ISAM<span>Admin</span></div>
+      <div class="logo-sub">v1.0 · Admin Panel</div>
+    </div>
+  </div>
+
+  <nav class="nav">
+    <div class="nav-group-label">Dashboard</div>
+    <div class="nav-item active" onclick="goNav('dashboard',this)">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+        <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+      </svg>
+      Overview
+    </div>
+
+    <div class="nav-group-label" style="margin-top:4px">Manajemen PIC</div>
+    <div class="nav-item" onclick="goNav('pic-list',this)">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+      </svg>
+      Daftar PIC
+      <span class="nav-pill np-blue" id="nav-count">10</span>
+    </div>
+    <div class="nav-item" onclick="openAddModal()">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>
+      </svg>
+      Tambah PIC Baru
+    </div>
+
+    <div class="nav-group-label" style="margin-top:4px">Manajemen Akun</div>
+    <div class="nav-item" onclick="goNav('accounts',this)">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+      </svg>
+      Akun &amp; Role
+      <span class="nav-pill np-blue">4</span>
+    </div>
+
+    <div class="nav-group-label" style="margin-top:4px">Sistem</div>
+    <div class="nav-item" onclick="goNav('log',this)">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+      </svg>
+      Log Aktivitas
+      <span class="nav-pill np-green" id="nav-log-count">7</span>
+    </div>
+    <div class="nav-item" onclick="showToast('Fitur pengaturan sistem segera hadir ⚙️')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>
+      </svg>
+      Pengaturan Sistem
+    </div>
+
+    <div class="nav-group-label" style="margin-top:4px">Temuan</div>
+    <div class="nav-item" onclick="goNav('active-findings',this)">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M12 2L22 20H2L12 2Z"/><line x1="12" y1="9" x2="12" y2="14"/><circle cx="12" cy="18" r="1"/>
+      </svg>
+      Temuan Aktif <span class="nav-pill np-red">13</span>
+    </div>
+    <div class="nav-item" onclick="goNav('overdue',this)">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <circle cx="12" cy="12" r="9"/><path d="M12 7V12L16 14"/>
+      </svg>
+      Overdue <span class="nav-pill np-red">5</span>
+    </div>
+    <div class="nav-item" onclick="goNav('waiting-approval',this)">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 12L11 14L15 10"/>
+      </svg>
+      Waiting Approval <span class="nav-pill np-yellow">3</span>
+    </div>
+    <div class="nav-item" onclick="goNav('completed',this)">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <circle cx="12" cy="12" r="9"/><path d="M8 12L11 15L16 9"/>
+      </svg>
+      Selesai
+    </div>
+
+    <div class="nav-group-label" style="margin-top:4px">Asset</div>
+    <div class="nav-item" onclick="goNav('asset-management',this)">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M12 2L20 6V18L12 22L4 18V6L12 2Z"/><path d="M12 22V12"/><path d="M20 6L12 12L4 6"/>
+      </svg>
+      Manajemen Asset
+    </div>
+    <div class="nav-item" onclick="goNav('inspection-schedule',this)">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <rect x="3" y="5" width="18" height="16" rx="2"/>
+        <path d="M8 3V7"/><path d="M16 3V7"/><path d="M3 10H21"/>
+      </svg>
+      Jadwal Inspeksi
+    </div>
+    <div class="nav-item" onclick="goNav('tool-category',this)">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M20 12L12 20L4 12V4H12L20 12Z"/><circle cx="8" cy="8" r="1.5"/>
+      </svg>
+      Kategori Alat
+    </div>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="user-card">
+      <div class="user-top">
+        <div class="user-ava" id="sidebar-ava">SA</div>
+        <div>
+          <div class="user-name" id="sidebar-nama">Sys Admin</div>
+          <div class="user-role-badge">🛡 Administrator</div>
+        </div>
+      </div>
+    </div>
+    <button class="logout-btn" onclick="isamLogout()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+        <polyline points="16 17 21 12 16 7"/>
+        <line x1="21" y1="12" x2="9" y2="12"/>
+      </svg>
+      Logout
+    </button>
+  </div>
+</aside>
+
+
+<!-- ══ MOBILE QUICK NAV ══ -->
+<div class="mobile-quick-nav" id="mobile-quick-nav">
+  <div class="mqn-item active" data-view="dashboard"    onclick="goNav('dashboard',null);setMqnActive(this)">📊 Overview</div>
+  <div class="mqn-item"        data-view="pic-list"     onclick="goNav('pic-list',null);setMqnActive(this)">👥 Daftar PIC</div>
+  <div class="mqn-item"        data-view="accounts"     onclick="goNav('accounts',null);setMqnActive(this)">🔑 Akun</div>
+  <div class="mqn-item"        data-view="log"          onclick="goNav('log',null);setMqnActive(this)">📋 Log</div>
+  <div class="mqn-item"        data-view="active-findings" onclick="goNav('active-findings',null);setMqnActive(this)">⚠️ Temuan <span style="background:var(--red);color:#fff;font-size:9px;padding:1px 5px;border-radius:8px;font-weight:700">13</span></div>
+  <div class="mqn-item"        data-view="overdue"      onclick="goNav('overdue',null);setMqnActive(this)">⏰ Overdue <span style="background:var(--red);color:#fff;font-size:9px;padding:1px 5px;border-radius:8px;font-weight:700">5</span></div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     MAIN
+     ══════════════════════════════════════════════════════════ -->
+<div class="main">
+
+  <header class="topbar">
+    <div class="topbar-title" id="page-title">Overview</div>
+    <span class="tb-mono" id="today-lbl"></span>
+    <div class="admin-badge">
+      <div class="ab-dot"></div>
+      <div>
+        <div class="ab-name" id="topbar-nama">Sys Admin</div>
+        <div class="ab-role">Administrator</div>
+      </div>
+    </div>
+    <button class="tb-btn primary" onclick="openAddModal()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+      Tambah PIC
+    </button>
+    <button class="tb-btn danger" onclick="isamLogout()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+        <polyline points="16 17 21 12 16 7"/>
+        <line x1="21" y1="12" x2="9" y2="12"/>
+      </svg>
+      Logout
+    </button>
+  </header>
+
+  <div class="views">
+
+    <!-- ══ OVERVIEW ══ -->
+    <div class="view on" id="v-dashboard">
+      <div class="kpi-grid">
+        <div class="kpi"><div class="kpi-bar" style="background:var(--accent)"></div><div class="kpi-lbl">Total PIC</div><div class="kpi-val" id="kv-total" style="color:var(--accent)">10</div><div class="kpi-sub">KGB &amp; GRB</div></div>
+        <div class="kpi"><div class="kpi-bar" style="background:var(--green)"></div><div class="kpi-lbl">PIC Aktif</div><div class="kpi-val" id="kv-aktif" style="color:var(--green)">10</div><div class="kpi-sub">Status aktif</div></div>
+        <div class="kpi"><div class="kpi-bar" style="background:var(--purple)"></div><div class="kpi-lbl">Area KGB</div><div class="kpi-val" id="kv-kgb" style="color:var(--purple)">6</div><div class="kpi-sub">PIC di KGB</div></div>
+        <div class="kpi"><div class="kpi-bar" style="background:var(--yellow)"></div><div class="kpi-lbl">Area GRB</div><div class="kpi-val" id="kv-grb" style="color:var(--yellow)">4</div><div class="kpi-sub">PIC di GRB</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:2fr 1fr;gap:14px">
+        <div class="card">
+          <div class="card-head">
+            <span class="card-title">Daftar PIC Terbaru</span>
+            <span style="font-size:12px;color:var(--accent);cursor:pointer" onclick="goNav('pic-list',null)">Kelola semua →</span>
+          </div>
+          <table class="tbl" id="overview-tbl"></table>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="card-title">Log Aktivitas</span></div>
+          <div id="overview-log"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ DAFTAR PIC ══ -->
+    <div class="view" id="v-pic-list">
+      <div class="filter-bar">
+        <input class="search-inp" id="search-pic" placeholder="🔍 Cari nama, area, email PIC…" oninput="renderPicCards()" />
+        <select class="flt-sel" id="filter-pit" onchange="renderPicCards()">
+          <option value="">Semua Pit</option><option value="KGB">KGB</option><option value="GRB">GRB</option>
+        </select>
+        <select class="flt-sel" id="filter-status" onchange="renderPicCards()">
+          <option value="">Semua Status</option><option value="Aktif">Aktif</option><option value="Nonaktif">Nonaktif</option>
+        </select>
+        <button class="tb-btn primary" onclick="openAddModal()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+          + Tambah PIC
+        </button>
+      </div>
+      <div style="margin-bottom:16px">
+        <div class="sec-lbl" id="sec-kgb">KGB — Kalimantan Group B</div>
+        <div class="pic-grid" id="grid-kgb"></div>
+      </div>
+      <div>
+        <div class="sec-lbl" id="sec-grb">GRB — Group B Replacement</div>
+        <div class="pic-grid" id="grid-grb"></div>
+      </div>
+    </div>
+
+    <!-- ══ AKUN ══ -->
+    <div class="view" id="v-accounts">
+      <div class="filter-bar">
+        <input class="search-inp" placeholder="🔍 Cari nama, email, role…" />
+        <button class="tb-btn primary" onclick="showToast('Fitur tambah akun segera hadir 🚧')">+ Tambah Akun</button>
+      </div>
+      <div class="card">
+        <table class="tbl">
+          <thead><tr><th>Nama</th><th>Email</th><th>Role</th><th>Area</th><th>Status</th><th>Terakhir Login</th><th></th></tr></thead>
+          <tbody>
+            <tr><td><b>Budi Jatmiko</b></td><td style="font-family:var(--mono);font-size:11px">budi.inspektor@inspeksi.id</td><td><span class="badge b-blue">Inspektor</span></td><td>WS CIA · KGB</td><td><span class="badge b-green"><span class="bdot" style="background:var(--green)"></span>Aktif</span></td><td style="font-family:var(--mono);font-size:11px;color:var(--text3)">Hari ini</td><td><button class="pc-btn edit" onclick="showToast('Edit akun Budi ✏️')">Edit</button></td></tr>
+            <tr><td><b>Abdul Aziz</b></td><td style="font-family:var(--mono);font-size:11px">abdul.pic@inspeksi.id</td><td><span class="badge b-green">PIC Area</span></td><td>PCR · KGB</td><td><span class="badge b-green"><span class="bdot" style="background:var(--green)"></span>Aktif</span></td><td style="font-family:var(--mono);font-size:11px;color:var(--text3)">Kemarin</td><td><button class="pc-btn edit" onclick="showToast('Edit akun Abdul ✏️')">Edit</button></td></tr>
+            <tr><td><b>Ahmad Surya</b></td><td style="font-family:var(--mono);font-size:11px">ahmad.supervisor@inspeksi.id</td><td><span class="badge b-purple">Supervisor</span></td><td>KGB &amp; GRB</td><td><span class="badge b-green"><span class="bdot" style="background:var(--green)"></span>Aktif</span></td><td style="font-family:var(--mono);font-size:11px;color:var(--text3)">Hari ini</td><td><button class="pc-btn edit" onclick="showToast('Edit akun Ahmad ✏️')">Edit</button></td></tr>
+            <tr><td><b>Sys Admin</b></td><td style="font-family:var(--mono);font-size:11px">admin@inspeksi.id</td><td><span class="badge b-red">Admin</span></td><td>ALL</td><td><span class="badge b-green"><span class="bdot" style="background:var(--green)"></span>Aktif</span></td><td style="font-family:var(--mono);font-size:11px;color:var(--text3)">Hari ini</td><td><button class="pc-btn" style="color:var(--text3)" onclick="showToast('Tidak bisa edit akun sendiri')">—</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ══ LOG ══ -->
+    <div class="view" id="v-log">
+      <div class="card">
+        <div class="card-head">
+          <span class="card-title">Log Aktivitas Admin</span>
+          <span style="font-size:12px;color:var(--text3)" id="log-count-lbl">7 entri</span>
+        </div>
+        <div id="full-log"></div>
+      </div>
+    </div>
+
+    <!-- ══ PLACEHOLDER VIEWS ══ -->
+    <div class="view" id="v-active-findings">
+      <div class="card" style="text-align:center;padding:40px">
+        <div style="font-size:36px;margin-bottom:12px">⚠️</div>
+        <div style="font-size:16px;font-weight:700;margin-bottom:6px">Temuan Aktif</div>
+        <div style="font-size:13px;color:var(--text2)">Fitur ini sedang dalam pengembangan</div>
+      </div>
+    </div>
+    <div class="view" id="v-overdue">
+      <div class="card" style="text-align:center;padding:40px">
+        <div style="font-size:36px;margin-bottom:12px">⏰</div>
+        <div style="font-size:16px;font-weight:700;margin-bottom:6px">Overdue</div>
+        <div style="font-size:13px;color:var(--text2)">Fitur ini sedang dalam pengembangan</div>
+      </div>
+    </div>
+    <div class="view" id="v-waiting-approval">
+      <div class="card" style="text-align:center;padding:40px">
+        <div style="font-size:36px;margin-bottom:12px">📋</div>
+        <div style="font-size:16px;font-weight:700;margin-bottom:6px">Waiting Approval</div>
+        <div style="font-size:13px;color:var(--text2)">Fitur ini sedang dalam pengembangan</div>
+      </div>
+    </div>
+    <div class="view" id="v-completed"><div class="card" style="text-align:center;padding:40px"><div style="font-size:36px;margin-bottom:12px">✅</div><div style="font-size:16px;font-weight:700;margin-bottom:6px">Selesai</div><div style="font-size:13px;color:var(--text2)">Fitur ini sedang dalam pengembangan</div></div></div>
+    <div class="view" id="v-asset-management"><div class="card" style="text-align:center;padding:40px"><div style="font-size:36px;margin-bottom:12px">📦</div><div style="font-size:16px;font-weight:700;margin-bottom:6px">Manajemen Asset</div><div style="font-size:13px;color:var(--text2)">Fitur ini sedang dalam pengembangan</div></div></div>
+    <div class="view" id="v-inspection-schedule"><div class="card" style="text-align:center;padding:40px"><div style="font-size:36px;margin-bottom:12px">📅</div><div style="font-size:16px;font-weight:700;margin-bottom:6px">Jadwal Inspeksi</div><div style="font-size:13px;color:var(--text2)">Fitur ini sedang dalam pengembangan</div></div></div>
+    <div class="view" id="v-tool-category"><div class="card" style="text-align:center;padding:40px"><div style="font-size:36px;margin-bottom:12px">🏷️</div><div style="font-size:16px;font-weight:700;margin-bottom:6px">Kategori Alat</div><div style="font-size:13px;color:var(--text2)">Fitur ini sedang dalam pengembangan</div></div></div>
+
+  </div><!-- /views -->
+</div><!-- /main -->
+
+
+<!-- ══ BOTTOM NAV BAR ══ -->
+<div class="bottom-nav" id="bottom-nav">
+  <div class="bn-item active" id="bn-dashboard" onclick="goNav('dashboard',null);setBnActive('bn-dashboard')">
+    <div class="bn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+    <div class="bn-lbl">Overview</div>
+  </div>
+  <div class="bn-item" id="bn-pic-list" onclick="goNav('pic-list',null);setBnActive('bn-pic-list')">
+    <div class="bn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+    <div class="bn-lbl">PIC</div>
+    <div class="bn-badge" id="bn-pic-badge">10</div>
+  </div>
+  <!-- FAB tambah PIC -->
+  <div class="bn-item" onclick="openAddModal()"
+       style="background:var(--red);border-radius:50%;width:50px;height:50px;margin-top:-10px;flex:none;box-shadow:0 4px 14px rgba(220,38,38,.4)">
+    <div class="bn-icon" style="color:#fff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+    <div class="bn-lbl" style="color:#fff;font-size:8.5px">Tambah</div>
+  </div>
+  <div class="bn-item" id="bn-accounts" onclick="goNav('accounts',null);setBnActive('bn-accounts')">
+    <div class="bn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+    <div class="bn-lbl">Akun</div>
+  </div>
+  <div class="bn-item" id="bn-log" onclick="goNav('log',null);setBnActive('bn-log')">
+    <div class="bn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+    <div class="bn-lbl">Log</div>
+  </div>
+</div>
+
+
+<!-- ══ MODAL TAMBAH/EDIT PIC ══ -->
+<div class="modal-overlay" id="modal-pic">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/>
+        </svg>
+        Tambah PIC Baru
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="r2">
+        <div class="field">
+          <label class="lbl">Nama Lengkap <span class="req">*</span></label>
+          <input type="text" id="m-nama" placeholder="Nama PIC…" />
+        </div>
+        <div class="field">
+          <label class="lbl">Inisial <span class="req">*</span></label>
+          <input type="text" id="m-inisial" placeholder="cth: BJ" maxlength="3" style="text-transform:uppercase" />
+        </div>
+      </div>
+      <div class="r2">
+        <div class="field">
+          <label class="lbl">Pit Area <span class="req">*</span></label>
+          <select id="m-pit" onchange="updateAreaOptions()">
+            <option value="">-- Pilih --</option>
+            <option value="KGB">KGB</option>
+            <option value="GRB">GRB</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="lbl">Sub Area <span class="req">*</span></label>
+          <select id="m-area"><option value="">-- Pilih Pit dulu --</option></select>
+        </div>
+      </div>
+      <div class="field">
+        <label class="lbl">Email</label>
+        <input type="email" id="m-email" placeholder="email@perusahaan.com" />
+      </div>
+      <div class="field">
+        <label class="lbl">No. Telepon</label>
+        <input type="tel" id="m-telp" placeholder="+62 8xx-xxxx-xxxx" />
+      </div>
+      <div class="field">
+        <label class="lbl">Status</label>
+        <select id="m-status">
+          <option value="Aktif">Aktif</option>
+          <option value="Nonaktif">Nonaktif</option>
+        </select>
+      </div>
+      <div class="field">
+        <label class="lbl">Warna Identitas</label>
+        <div class="color-row" id="color-row"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal()">Batal</button>
+      <button class="btn primary" id="modal-save-btn" onclick="savePIC()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Simpan PIC
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL HAPUS ══ -->
+<div class="modal-overlay" id="modal-del">
+  <div class="modal del-modal">
+    <div class="modal-body" style="padding:24px">
+      <div class="del-icon">🗑</div>
+      <div class="del-title">Hapus PIC?</div>
+      <div class="del-msg" id="del-msg">Data PIC ini akan dihapus permanen.</div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="document.getElementById('modal-del').classList.remove('show')">Batal</button>
+      <button class="btn danger" id="del-confirm-btn">Ya, Hapus</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast-el"><span id="toast-txt"></span></div>
+
+<script src="Java/adminjs.js"></script>
+</body>
+</html>

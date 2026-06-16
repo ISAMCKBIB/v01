@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>ISAM — Inspection System Asset Management</title>
+  <meta name="description" content="Platform digital monitoring inspeksi alat dan manajemen temuan sarana prasarana tambang BIB Mining." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style/indexstyl.css" />
+  <link rel="stylesheet" href="style/index-responsive.css" />
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <a class="nav-logo" onclick="scrollSec('home')" style="cursor:pointer">
+    <div class="nav-logo-mark">
+      <svg viewBox="0 0 24 24">
+        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+      </svg>
+    </div>
+    <div><div class="nav-logo-title">ISA<span>M</span></div></div>
+  </a>
+
+  <div class="nav-links">
+    <a class="nav-link active" data-nav="home"      onclick="scrollSec('home')">Home</a>
+    <a class="nav-link"        data-nav="dashboard"  onclick="scrollSec('dashboard')">Dashboard</a>
+    <a class="nav-link"        data-nav="pic-area"   onclick="scrollSec('pic-area')">PIC Area</a>
+    <a class="nav-link"        data-nav="about"      onclick="scrollSec('about')">About</a>
+    <a class="nav-link"        data-nav="contact"    onclick="scrollSec('contact')">Contact</a>
+  </div>
+
+  <div class="nav-cta">
+    <a class="btn-nav-login" href="login.html">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+        <polyline points="10 17 15 12 10 7"/>
+        <line x1="15" y1="12" x2="3" y2="12"/>
+      </svg>
+      <span>Login</span>
+    </a>
+    <div class="profile-badge" id="profile-badge" onclick="goDashboard()" style="display:none">
+      <div class="profile-ava" id="profile-ava">SA</div>
+      <div>
+        <div class="profile-name" id="profile-name">User</div>
+        <div class="profile-role" id="profile-role">Role</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <a class="mobile-link" data-scroll onclick="scrollSec('home')">🏠 Home</a>
+  <a class="mobile-link" data-scroll onclick="scrollSec('dashboard')">📊 Dashboard</a>
+  <a class="mobile-link" data-scroll onclick="scrollSec('pic-area')">👤 PIC Area</a>
+  <a class="mobile-link" data-scroll onclick="scrollSec('about')">ℹ️ About</a>
+  <a class="mobile-link" data-scroll onclick="scrollSec('contact')">📧 Contact</a>
+  <a class="mobile-link" href="login.html" style="color:var(--accent);font-weight:600">🔑 Login</a>
+</div>
+
+
+<!-- HERO -->
+<section id="sec-home">
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+
+    <div class="hero-content">
+      <div class="hero-badge">
+        <div class="hero-badge-dot"></div>
+        Platform Inspeksi Digital · BIB Mining Project
+      </div>
+      <h1 class="hero-title">
+        Inspection System<br/>
+        <span>Asset Management</span>
+      </h1>
+      <p class="hero-desc">
+        Platform digital terintegrasi untuk monitoring inspeksi alat, manajemen temuan,
+        dan tindak lanjut sarana prasarana tambang — melindungi aset dan keselamatan
+        seluruh personel di area KGB &amp; GRB.
+      </p>
+      <div class="hero-cta">
+        <a class="btn-hero-primary" href="login.html">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+            <polyline points="10 17 15 12 10 7"/>
+            <line x1="15" y1="12" x2="3" y2="12"/>
+          </svg>
+          Masuk ke akun anda
+        </a>
+        <a class="btn-hero-secondary" onclick="scrollSec('dashboard')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7" rx="1"/>
+            <rect x="14" y="3" width="7" height="7" rx="1"/>
+            <rect x="3" y="14" width="7" height="7" rx="1"/>
+            <rect x="14" y="14" width="7" height="7" rx="1"/>
+          </svg>
+          Ayo inspeksi
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hs-val" data-count="512" data-suffix="">0</div><div class="hs-lbl">Total Asset</div></div>
+      <div class="hero-stat"><div class="hs-val" data-count="12"  data-suffix="">0</div><div class="hs-lbl">Jenis Alat Diinspeksi</div></div>
+      <div class="hero-stat"><div class="hs-val" data-count="10"  data-suffix="">0</div><div class="hs-lbl">PIC Area Aktif</div></div>
+      <div class="hero-stat"><div class="hs-val" data-count="2"   data-suffix=" Pit">0</div><div class="hs-lbl">Area Operasional</div></div>
+      <div class="hero-stat"><div class="hs-val" data-count="48"  data-suffix="">0</div><div class="hs-lbl">Inspeksi Bulan Ini</div></div>
+      <div class="hero-stat"><div class="hs-val" data-count="73"  data-suffix="%">0</div><div class="hs-lbl">Pass Rate</div></div>
+    </div>
+
+    <div class="scroll-hint" onclick="scrollSec('dashboard')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 5v14M5 12l7 7 7-7"/>
+      </svg>
+      Scroll untuk lihat dashboard
+    </div>
+  </div>
+</section>
+
+
+<!-- DASHBOARD / KPI -->
+<section class="kpi-section" id="sec-dashboard">
+  <div class="section-header">
+    <div class="section-badge">📊 Live Dashboard</div>
+    <h2 class="section-title">Monitoring Real-Time</h2>
+    <p class="section-desc">Pantau kondisi inspeksi seluruh area tambang secara langsung — data terupdate otomatis dari sistem.</p>
+  </div>
+  <div class="kpi-quick">
+    <div class="kq-card"><div class="kq-accent" style="background:var(--accent)"></div><div class="kq-label">Total Inspeksi</div><div class="kq-val" style="color:var(--accent)" data-count="48">0</div><div class="kq-desc">Bulan Juni 2026</div><span class="kq-trend kq-up">▲ 12%</span></div>
+    <div class="kq-card"><div class="kq-accent" style="background:var(--green)"></div><div class="kq-label">Lulus Inspeksi</div><div class="kq-val" style="color:var(--green)" data-count="35">0</div><div class="kq-desc">72.9% pass rate</div><span class="kq-trend kq-up">▲ 5%</span></div>
+    <div class="kq-card"><div class="kq-accent" style="background:var(--yellow)"></div><div class="kq-label">Waiting Inspeksi</div><div class="kq-val" style="color:var(--yellow)" data-count="30">0</div><div class="kq-desc">Perlu segera diinspeksi</div><span class="kq-trend kq-down">▼ 3%</span></div>
+    <div class="kq-card"><div class="kq-accent" style="background:var(--orange)"></div><div class="kq-label">Temuan Open</div><div class="kq-val" style="color:var(--orange)" data-count="9">0</div><div class="kq-desc">Perlu tindak lanjut</div><span class="kq-trend kq-down">▼ 1</span></div>
+  </div>
+  <div class="pbi-wrap">
+    <div class="pbi-header">
+      <div class="pbi-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Dashboard Inspeksi — Power BI
+      </div>
+      <div class="pbi-live"><div class="pbi-live-dot"></div>Live Data</div>
+    </div>
+    <iframe class="pbi-frame"
+      src="https://app.powerbi.com/view?r=eyJrIjoiMWM4NTM4NjEtNmU1Yy00NmE3LWJkMTItYmY3N2I2ODhjMGRjIiwidCI6ImI3Y2YzZDc4LTZjYmQtNGFjMi05OTU2LWY2OGFiNjA5NjBiZiIsImMiOjEwfQ%3D%3D"
+      allowfullscreen title="ISAM Power BI Dashboard" loading="lazy"></iframe>
+  </div>
+</section>
+
+
+<!-- GALLERY -->
+<section class="gallery-section">
+  <div class="section-header">
+    <div class="section-badge">📸 Galeri</div>
+    <h2 class="section-title">Aktivitas Operasional</h2>
+    <p class="section-desc">Dokumentasi kegiatan inspeksi, workshop, dan operasional di seluruh area tambang BIB.</p>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item"><div class="gallery-placeholder" style="height:300px"><div class="gp-icon">🏭</div><div class="gp-lbl">Workshop KGB — Foto Operasional</div><div style="font-size:11px;color:var(--text3);margin-top:4px">Ganti dengan foto asli perusahaan</div></div><div class="gallery-overlay"><div class="gallery-caption">Workshop CIA — Area KGB</div></div></div>
+    <div class="gallery-item"><div class="gallery-placeholder" style="height:200px"><div class="gp-icon">🔧</div><div class="gp-lbl">Inspeksi Crane Workshop</div></div><div class="gallery-overlay"><div class="gallery-caption">Inspeksi Crane — Bay CP</div></div></div>
+    <div class="gallery-item"><div class="gallery-placeholder" style="height:200px"><div class="gp-icon">🦺</div><div class="gp-lbl">Pemeriksaan Full Body Harness</div></div><div class="gallery-overlay"><div class="gallery-caption">Inspeksi FBH — Iglo HE GRB</div></div></div>
+    <div class="gallery-item"><div class="gallery-placeholder" style="height:200px"><div class="gp-icon">🧯</div><div class="gp-lbl">Pengecekan APAR Bulanan</div></div><div class="gallery-overlay"><div class="gallery-caption">Inspeksi APAR — WS CIA</div></div></div>
+    <div class="gallery-item"><div class="gallery-placeholder" style="height:220px"><div class="gp-icon">⛏</div><div class="gp-lbl">Aktivitas Pit KGB &amp; GRB</div><div style="font-size:11px;color:var(--text3);margin-top:4px">Ganti dengan foto asli perusahaan</div></div><div class="gallery-overlay"><div class="gallery-caption">Area Operasional — KGB &amp; GRB</div></div></div>
+    <div class="gallery-item"><div class="gallery-placeholder" style="height:200px"><div class="gp-icon">📋</div><div class="gp-lbl">Briefing Safety Tim Inspeksi</div></div><div class="gallery-overlay"><div class="gallery-caption">Safety Briefing — Tim ISAM</div></div></div>
+  </div>
+</section>
+
+
+<!-- FEATURES -->
+<section class="features-section">
+  <div class="section-header">
+    <div class="section-badge">⚡ Fitur Unggulan</div>
+    <h2 class="section-title">Semua yang Anda Butuhkan</h2>
+    <p class="section-desc">ISAM dirancang khusus untuk kebutuhan inspeksi alat di lingkungan tambang dengan workflow yang sederhana dan efisien.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feat-card"><div class="feat-icon" style="background:#eff6ff">📋</div><div class="feat-title">Form Inspeksi Digital</div><div class="feat-desc">12 jenis alat dengan checklist terstruktur — Tenaga Angin, Alat Listrik, Crane, FBH, APAR, dan lainnya. Submit langsung dari lapangan via mobile.</div></div>
+    <div class="feat-card"><div class="feat-icon" style="background:#f0fdf4">📊</div><div class="feat-title">Dashboard Real-Time</div><div class="feat-desc">Visualisasi data inspeksi terintegrasi dengan Power BI. Pantau KPI, overdue, dan temuan per area secara langsung tanpa refresh manual.</div></div>
+    <div class="feat-card"><div class="feat-icon" style="background:#fef2f2">🚨</div><div class="feat-title">Alert &amp; Notifikasi</div><div class="feat-desc">Notifikasi otomatis ke PIC melalui email saat ada temuan baru atau jadwal inspeksi yang akan jatuh tempo. Tidak ada yang terlewat.</div></div>
+    <div class="feat-card"><div class="feat-icon" style="background:#fff7ed">🔧</div><div class="feat-title">Tindak Lanjut Temuan</div><div class="feat-desc">Workflow tindak lanjut terstruktur — PIC mengisi form perbaikan dengan foto bukti, supervisor approve, status terpantau real-time.</div></div>
+    <div class="feat-card"><div class="feat-icon" style="background:#f5f3ff">🛡</div><div class="feat-title">Multi-Role Access</div><div class="feat-desc">4 level akses: Administrator, Safety Captain, Inspektor, dan PIC Area — masing-masing dengan dashboard dan fitur yang sesuai peran.</div></div>
+    <div class="feat-card"><div class="feat-icon" style="background:#fffbeb">📸</div><div class="feat-title">Dokumentasi Foto</div><div class="feat-desc">Upload foto langsung dari kamera mobile dengan kompresi otomatis. Foto temuan dan bukti perbaikan tersimpan terorganisir di Google Drive.</div></div>
+  </div>
+</section>
+
+
+<!-- PIC AREA -->
+<section class="pic-section" id="sec-pic-area">
+  <div class="section-header">
+    <div class="section-badge">👤 PIC Area</div>
+    <h2 class="section-title">Penanggung Jawab Area</h2>
+    <p class="section-desc">Tim PIC yang bertanggung jawab atas inspeksi dan tindak lanjut temuan di setiap area operasional KGB &amp; GRB.</p>
+  </div>
+  <div class="pic-area-grid">
+    <div class="pa-card"><div class="pa-ava" style="background:#2563eb">BJ</div><div><div class="pa-name">Budi Jatmiko</div><div class="pa-area">📍 WS CIA</div><span class="pa-pit" style="background:#eff6ff;color:#2563eb">KGB</span></div><div class="pa-status"><span class="pa-badge" style="background:#f0fdf4;color:#16a34a">● Aktif</span></div></div>
+    <div class="pa-card"><div class="pa-ava" style="background:#7c3aed">RS</div><div><div class="pa-name">Rina Sari</div><div class="pa-area">📍 Office CIA</div><span class="pa-pit" style="background:#eff6ff;color:#2563eb">KGB</span></div><div class="pa-status"><span class="pa-badge" style="background:#f0fdf4;color:#16a34a">● Aktif</span></div></div>
+    <div class="pa-card"><div class="pa-ava" style="background:#059669">AA</div><div><div class="pa-name">Abdul Aziz</div><div class="pa-area">📍 PCR</div><span class="pa-pit" style="background:#eff6ff;color:#2563eb">KGB</span></div><div class="pa-status"><span class="pa-badge" style="background:#f0fdf4;color:#16a34a">● Aktif</span></div></div>
+    <div class="pa-card"><div class="pa-ava" style="background:#d97706">HP</div><div><div class="pa-name">Hendra P.</div><div class="pa-area">📍 Area TU</div><span class="pa-pit" style="background:#eff6ff;color:#2563eb">KGB</span></div><div class="pa-status"><span class="pa-badge" style="background:#f0fdf4;color:#16a34a">● Aktif</span></div></div>
+    <div class="pa-card"><div class="pa-ava" style="background:#2563eb">RA</div><div><div class="pa-name">Rizki Amri</div><div class="pa-area">📍 Iglo HE</div><span class="pa-pit" style="background:#f5f3ff;color:#7c3aed">GRB</span></div><div class="pa-status"><span class="pa-badge" style="background:#f0fdf4;color:#16a34a">● Aktif</span></div></div>
+    <div class="pa-card"><div class="pa-ava" style="background:#7c3aed">FN</div><div><div class="pa-name">Fajar Nugroho</div><div class="pa-area">📍 Iglo Track</div><span class="pa-pit" style="background:#f5f3ff;color:#7c3aed">GRB</span></div><div class="pa-status"><span class="pa-badge" style="background:#f0fdf4;color:#16a34a">● Aktif</span></div></div>
+    <div class="pa-card"><div class="pa-ava" style="background:#059669">YP</div><div><div class="pa-name">Yudi Pratama</div><div class="pa-area">📍 Area TU</div><span class="pa-pit" style="background:#f5f3ff;color:#7c3aed">GRB</span></div><div class="pa-status"><span class="pa-badge" style="background:#f0fdf4;color:#16a34a">● Aktif</span></div></div>
+    <div class="pa-card"><div class="pa-ava" style="background:#d97706">BS</div><div><div class="pa-name">Bayu Santoso</div><div class="pa-area">📍 Bay CP</div><span class="pa-pit" style="background:#f5f3ff;color:#7c3aed">GRB</span></div><div class="pa-status"><span class="pa-badge" style="background:#f0fdf4;color:#16a34a">● Aktif</span></div></div>
+  </div>
+</section>
+
+
+<!-- ABOUT -->
+<section class="about-section" id="sec-about">
+  <div class="about-grid">
+    <div class="about-content">
+      <div class="section-badge" style="display:inline-flex">ℹ️ Tentang ISAM</div>
+      <h2 class="about-title">Dibangun untuk Keselamatan Tambang</h2>
+      <p class="about-desc">ISAM (Inspection System Asset Management) adalah platform digital yang dikembangkan khusus untuk mendukung program Continuous Improvement (CI) di BIB Mining Project, dioperasikan oleh Divison Asset Management.</p>
+      <div class="about-items">
+        <div class="about-item"><div class="about-item-icon">🎯</div><div><div class="about-item-title">Tujuan</div><div class="about-item-desc">Mendigitalisasi proses inspeksi alat dan sarana K3 untuk meningkatkan efisiensi, akurasi data, dan respons terhadap temuan di lapangan.</div></div></div>
+        <div class="about-item"><div class="about-item-icon">📍</div><div><div class="about-item-title">Cakupan Area</div><div class="about-item-desc">PIT KGB dan GRB — meliputi Workshop CIA, Iglo HE, Bay CP, PCR, SSB, dan area lainnya.</div></div></div>
+        <div class="about-item"><div class="about-item-icon">⚙️</div><div><div class="about-item-title">Teknologi</div><div class="about-item-desc">Dibangun di atas Google Apps Script, Google Sheets, Google Drive, dan Power BI — terintegrasi penuh dalam ekosistem Microsoft 365.</div></div></div>
+      </div>
+    </div>
+    <div class="about-cards">
+      <div class="ab-card"><div class="ab-card-head"><div class="ab-card-icon">🏢</div><div class="ab-card-title">PT Cipta Kridatama</div></div><div class="ab-card-desc">Perusahaan jasa kontraktor pertambangan yang memiliki pengalaman lebih dari 20 tahun yang mengutamakan safety.</div></div>
+      <div class="ab-card"><div class="ab-card-head"><div class="ab-card-icon">⛏</div><div class="ab-card-title">BIB Mining Project</div></div><div class="ab-card-desc">Proyek tambang batubara yang berkomitmen pada standar keselamatan kerja dan program CI berkelanjutan untuk peningkatan performa operasional.</div></div>
+      <div class="ab-card"><div class="ab-card-head"><div class="ab-card-icon">🏆</div><div class="ab-card-title">Program CI Competition</div></div><div class="ab-card-desc">ISAM dikembangkan sebagai kontribusi nyata dalam kompetisi Continuous Improvement — mengintegrasikan teknologi digital ke dalam proses inspeksi lapangan.</div></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- CONTACT -->
+<section class="contact-section" id="sec-contact">
+  <div class="section-header">
+    <div class="section-badge">📧 Hubungi Kami</div>
+    <h2 class="section-title">Ada Pertanyaan?</h2>
+    <p class="section-desc">Tim kami siap membantu Anda terkait penggunaan sistem, pelaporan masalah, atau permintaan fitur baru.</p>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <div class="ci-item"><div class="ci-icon">📍</div><div><div class="ci-title">Lokasi</div><div class="ci-val">BIB Mining Project, Kalimantan Timur</div></div></div>
+      <div class="ci-item"><div class="ci-icon">📧</div><div><div class="ci-title">Email</div><div class="ci-val">admin@bib-mining.isam.id</div></div></div>
+      <div class="ci-item"><div class="ci-icon">🏢</div><div><div class="ci-title">Perusahaan</div><div class="ci-val">PT Cipta Kridatama<br/>https://www.ciptakridatama.co.id</div></div></div>
+      <div class="ci-item"><div class="ci-icon">⏰</div><div><div class="ci-title">Jam Operasional</div><div class="ci-val">Senin – Minggu, 06.00 – 18.00 WITA</div></div></div>
+    </div>
+    <div class="contact-form">
+      <div class="cf-title">Kirim Pesan</div>
+      <div class="cf-sub">Kami akan membalas dalam 1×24 jam kerja.</div>
+      <form id="contact-form" onsubmit="submitContact(event)">
+        <div class="cf-r2">
+          <div class="cf-field"><label class="cf-lbl" for="cf-nama">Nama</label><input type="text" id="cf-nama" placeholder="Nama lengkap" /></div>
+          <div class="cf-field"><label class="cf-lbl" for="cf-email">Email</label><input type="email" id="cf-email" placeholder="email@perusahaan.com" /></div>
+        </div>
+        <div class="cf-field">
+          <label class="cf-lbl" for="cf-subject">Subjek</label>
+          <select id="cf-subject">
+            <option value="">— Pilih subjek —</option>
+            <option value="akses">Permintaan Akses</option>
+            <option value="bug">Laporan Bug / Error</option>
+            <option value="fitur">Permintaan Fitur</option>
+            <option value="training">Training &amp; Onboarding</option>
+            <option value="lainnya">Lainnya</option>
+          </select>
+        </div>
+        <div class="cf-field"><label class="cf-lbl" for="cf-pesan">Pesan</label><textarea id="cf-pesan" placeholder="Tuliskan pesan atau pertanyaan Anda…"></textarea></div>
+        <button class="btn-submit" id="btn-contact-submit" type="submit">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Kirim Pesan
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <div class="footer-logo-mark"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+        <span class="footer-logo-title">ISAM</span>
+      </div>
+      <p class="footer-desc">Platform digital inspection &amp; safety asset management untuk mendukung operasional tambang yang aman, efisien, dan terstandar di BIB Mining Project.</p>
+      <div class="footer-social">
+        <div class="social-btn" onclick="showToast('Email: admin@bib-mining.isam.id')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        <div class="social-btn" onclick="showToast('Fitur ini segera hadir 🚧')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2H3v16h5v4l4-4h5l4-4V2z"/></svg></div>
+        <div class="social-btn" onclick="showToast('Fitur ini segera hadir 🚧')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Navigasi</div>
+      <div class="footer-links">
+        <a class="footer-link" onclick="scrollSec('home')">Home</a>
+        <a class="footer-link" onclick="scrollSec('dashboard')">Dashboard</a>
+        <a class="footer-link" onclick="scrollSec('pic-area')">PIC Area</a>
+        <a class="footer-link" onclick="scrollSec('about')">About</a>
+        <a class="footer-link" onclick="scrollSec('contact')">Contact</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Fitur</div>
+      <div class="footer-links">
+        <a class="footer-link" href="login.html">Form Inspeksi</a>
+        <a class="footer-link" href="login.html">Dashboard PIC</a>
+        <a class="footer-link" href="login.html">Safety Captain</a>
+        <a class="footer-link" href="login.html">Admin Panel</a>
+        <a class="footer-link" onclick="showToast('Fitur laporan segera hadir 📄')">Laporan &amp; Export</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Kontak</div>
+      <div class="footer-links">
+        <a class="footer-link">📍 BIB Mining, Kaltim</a>
+        <a class="footer-link">📧 admin@bib-mining.isam.id</a>
+        <a class="footer-link">🏢 PT Cipta Kridatama</a>
+        <a class="footer-link">⏰ Sen – Ming, 06.00 – 18.00</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2026 ISAM · PT Cipta Kridatama · BIB Mining Project. All rights reserved.</div>
+    <div class="footer-bottom-right">v1.0.0 · build 2026</div>
+  </div>
+</footer>
+
+<div class="toast" id="toast-el"><span id="toast-txt"></span></div>
+
+<script src="Java/indexjs.js"></script>
+</body>
+</html>
